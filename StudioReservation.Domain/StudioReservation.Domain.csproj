@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Folder Include="Repository\" />
+    <Folder Include="Enum\" />
   </ItemGroup>
 
 </Project>
