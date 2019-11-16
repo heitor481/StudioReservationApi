@@ -4,7 +4,7 @@ using StudioReservation.Shared.Entity;
 
 namespace StudioReservation.Domain.Entities
 {
-    public class StudioSchedule : IIdentity
+    public class StudioRoomSchedule : IIdentity
     {
         public DateTime StartTime { get; set; }
 
@@ -14,6 +14,8 @@ namespace StudioReservation.Domain.Entities
 
         public DayOfWeek DayOfWeek { get; set; }
 
-        public ICollection<Studio> Studio { get; set; }
+        public virtual Studio Studio { get; set; }
+
+        public virtual StudioRoom StudioRoom { get; set; }
     }
 }

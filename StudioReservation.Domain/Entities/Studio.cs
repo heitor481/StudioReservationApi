@@ -11,6 +11,8 @@ namespace StudioReservation.Domain.Entities
 
         public Address Address { get; set; }
 
-        public virtual ICollection<StudioSchedule> StudioSchedule { get; set; }
+        public virtual ICollection<StudioRoomSchedule> StudioRoomSchedule { get; set; }
+
+        public virtual ICollection<StudioRoom> StudioRoom { get; set; }
     }
 }
