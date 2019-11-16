@@ -11,11 +11,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{8D64D944-F89
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudioReservation.Domain", "StudioReservation.Domain\StudioReservation.Domain.csproj", "{3E777D50-EFCF-4B48-B817-730B451FC22C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudioReservation.Api", "StudioReservation.Api\StudioReservation.Api.csproj", "{B696EED3-EFCF-4B36-BF79-304A61AF8BD4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudioReservation.Api", "StudioReservation.Api\StudioReservation.Api.csproj", "{B696EED3-EFCF-4B36-BF79-304A61AF8BD4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{B75EED59-0378-4B92-83BC-9918AB869B44}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudioReservation.Tests", "StudioReservation.Tests\StudioReservation.Tests.csproj", "{9A38A651-1003-4213-943E-BCAA4920B9DE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StudioReservation.Tests", "StudioReservation.Tests\StudioReservation.Tests.csproj", "{9A38A651-1003-4213-943E-BCAA4920B9DE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{58051614-90C0-486E-8C77-2D58BECFACFC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudioReservation.Shared", "StudioReservation.Shared\StudioReservation.Shared.csproj", "{2E702DCF-28F7-495C-82E5-014974375022}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +39,10 @@ Global
 		{9A38A651-1003-4213-943E-BCAA4920B9DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A38A651-1003-4213-943E-BCAA4920B9DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A38A651-1003-4213-943E-BCAA4920B9DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E702DCF-28F7-495C-82E5-014974375022}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E702DCF-28F7-495C-82E5-014974375022}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E702DCF-28F7-495C-82E5-014974375022}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E702DCF-28F7-495C-82E5-014974375022}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -43,6 +51,7 @@ Global
 		{3E777D50-EFCF-4B48-B817-730B451FC22C} = {E1228C4C-549B-4462-94D0-D4133A83937E}
 		{B696EED3-EFCF-4B36-BF79-304A61AF8BD4} = {8D64D944-F898-4A13-B0FD-71603DDC3508}
 		{9A38A651-1003-4213-943E-BCAA4920B9DE} = {B75EED59-0378-4B92-83BC-9918AB869B44}
+		{2E702DCF-28F7-495C-82E5-014974375022} = {58051614-90C0-486E-8C77-2D58BECFACFC}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FCE2A439-0A60-4D5A-8CF5-72CDDDEFE35D}

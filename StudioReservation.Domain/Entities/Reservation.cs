@@ -1,4 +1,6 @@
 ﻿using System;
+using StudioReservation.Shared.Entity;
+
 namespace StudioReservation.Domain.Entities
 {
     public class Reservation : IIdentity
@@ -9,8 +11,6 @@ namespace StudioReservation.Domain.Entities
             this.Client = client;
             this.Studio = studio;
         }
-
-        public int Id { get; set; }
 
         public DateTime DateOfTheReservation { get; set; }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using StudioReservation.Domain.ValueObjects;
+using StudioReservation.Shared.Entity;
 
 namespace StudioReservation.Domain.Entities
 {
@@ -14,8 +15,6 @@ namespace StudioReservation.Domain.Entities
             this.Email = email;
             this.Document = document;
         }
-
-        public int Id { get; set; }
 
         public string FirstName { get; set; }
 

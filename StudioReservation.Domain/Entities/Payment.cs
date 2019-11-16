@@ -1,5 +1,6 @@
 ﻿using System;
 using StudioReservation.Domain.ValueObjects;
+using StudioReservation.Shared.Entity;
 
 namespace StudioReservation.Domain.Entities
 {
@@ -13,7 +14,6 @@ namespace StudioReservation.Domain.Entities
             this.ClientDocument = document;
         }
 
-        public int Id { get; set; }
 
         public DateTime PaymentDate { get; set; }
 

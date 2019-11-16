@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using StudioReservation.Domain.ValueObjects;
+using StudioReservation.Shared.Entity;
 
 namespace StudioReservation.Domain.Entities
 {
     public class Studio : IIdentity
     {
-
-        public int Id { get; set; }
 
         public string StudioName { get; set; }
 
