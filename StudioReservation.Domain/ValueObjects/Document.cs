@@ -5,8 +5,10 @@ namespace StudioReservation.Domain.ValueObjects
 {
     public class Document
     {
-        public Document()
+        public Document(string clientDocument, EDocumentType documentType)
         {
+            this.ClientDocument = clientDocument;
+            this.DocumentType = documentType;
         }
 
         public string ClientDocument { get; set; }

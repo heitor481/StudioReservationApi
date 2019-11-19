@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using StudioReservation.Shared.Entity;
 
 namespace StudioReservation.Domain.Entities
 {
     public class Reservation : IIdentity
     {
-        public Reservation(DateTime dateOfTheReservation, Client client, Studio studio, List<StudioRoom> studioRooms, List<StudioRoomSchedule> studioRoomSchedules)
+        public Reservation(DateTime dateOfTheReservation, Client client, Studio studio)
         {
             this.NumberOfReservation = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
             this.DateOfTheReservation = dateOfTheReservation;
             this.Client = client;
             this.Studio = studio;
+            this.StudioRoom = new List<StudioRoom>();
+            this.StudioRoomSchedule = new List<StudioRoomSchedule>();
+
         }
 
         public string NumberOfReservation { get; set; }
