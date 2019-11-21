@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using Flunt.Validations;
 using StudioReservation.Shared.Entity;
 
 namespace StudioReservation.Domain.Entities
 {
-    public class Reservation : IIdentity
+    public class Reservation : IIdentity, IValidatable
     {
         public Reservation(DateTime dateOfTheReservation, Client client, Studio studio)
         {
@@ -15,7 +15,6 @@ namespace StudioReservation.Domain.Entities
             this.Studio = studio;
             this.StudioRoom = new List<StudioRoom>();
             this.StudioRoomSchedule = new List<StudioRoomSchedule>();
-
         }
 
         public string NumberOfReservation { get; set; }
@@ -30,5 +29,13 @@ namespace StudioReservation.Domain.Entities
 
         public virtual ICollection<StudioRoomSchedule> StudioRoomSchedule { get; set; }
 
+        public void Validate()
+        {
+            AddNotifications(new Contract()
+                    .Requires()
+                    .IsNull(this.Client, "Client", "The client cannot be null")
+                    .IsNull(this.Studio, "Studio", "Its necessary to select the studio for that operation")
+                );
+        }
     }
 }
