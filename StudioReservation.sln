@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{580516
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudioReservation.Shared", "StudioReservation.Shared\StudioReservation.Shared.csproj", "{2E702DCF-28F7-495C-82E5-014974375022}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StudioReservation.Data", "StudioReservation.Data\StudioReservation.Data.csproj", "{2E22DA9D-3382-44B6-B2E7-8EA176B52FB0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{2E702DCF-28F7-495C-82E5-014974375022}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E702DCF-28F7-495C-82E5-014974375022}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E702DCF-28F7-495C-82E5-014974375022}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E22DA9D-3382-44B6-B2E7-8EA176B52FB0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E22DA9D-3382-44B6-B2E7-8EA176B52FB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E22DA9D-3382-44B6-B2E7-8EA176B52FB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E22DA9D-3382-44B6-B2E7-8EA176B52FB0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -52,6 +58,7 @@ Global
 		{B696EED3-EFCF-4B36-BF79-304A61AF8BD4} = {8D64D944-F898-4A13-B0FD-71603DDC3508}
 		{9A38A651-1003-4213-943E-BCAA4920B9DE} = {B75EED59-0378-4B92-83BC-9918AB869B44}
 		{2E702DCF-28F7-495C-82E5-014974375022} = {58051614-90C0-486E-8C77-2D58BECFACFC}
+		{2E22DA9D-3382-44B6-B2E7-8EA176B52FB0} = {2CD43F55-6D87-428A-81B4-E700578DDD2E}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FCE2A439-0A60-4D5A-8CF5-72CDDDEFE35D}
