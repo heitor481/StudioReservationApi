@@ -16,9 +16,6 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Map\" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\StudioReservation.Domain\StudioReservation.Domain.csproj" />
   </ItemGroup>
 </Project>
