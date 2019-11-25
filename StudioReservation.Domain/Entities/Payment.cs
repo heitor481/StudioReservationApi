@@ -1,12 +1,19 @@
 ﻿using System;
+using Flunt.Validations;
 using StudioReservation.Domain.ValueObjects;
 using StudioReservation.Shared.Entity;
 
 namespace StudioReservation.Domain.Entities
 {
-    public class Payment : IIdentity
+    public class Payment : IIdentity, IValidatable
     {
-        public Payment(DateTime paymentDate, DateTime expiredDate, decimal total, decimal totalPaid, Client client, Document clientDocument)
+        public Payment(DateTime paymentDate,
+            DateTime expiredDate,
+            decimal total,
+            decimal totalPaid,
+            Client client,
+            Document clientDocument,
+            Reservation reservation)
         {
             this.NumberOfPayment = Guid.NewGuid().ToString().Replace("-", "").Substring(0, 10);
             this.PaymentDate = paymentDate;
@@ -15,6 +22,7 @@ namespace StudioReservation.Domain.Entities
             this.TotalPaid = totalPaid;
             this.Client = client;
             this.ClientDocument = clientDocument;
+            this.Reservation = reservation;
         }
 
         public string NumberOfPayment { get; set; }
@@ -30,5 +38,18 @@ namespace StudioReservation.Domain.Entities
         public virtual Client Client { get; set; }
 
         public virtual Document ClientDocument { get; set; }
+
+        public virtual Reservation Reservation { get; set; }
+
+        public void Validate()
+        {
+            AddNotifications(new Contract()
+                    .Requires()
+                    .IsLowerThan(this.TotalPaid, this.Total, "Total Paid", "The amount paid has to be equal to the total")
+                    .IsNull(this.Client, "Client", "The payment needs to have a client")
+                    .IsNull(this.ClientDocument, "Client Document", "The payment needs the identification of the client")
+                    .IsNull(this.Reservation, "Reservation", "The payment needs a reservation")
+                );
+        }
     }
 }

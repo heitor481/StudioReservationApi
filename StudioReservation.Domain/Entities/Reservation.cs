@@ -29,12 +29,16 @@ namespace StudioReservation.Domain.Entities
 
         public virtual ICollection<StudioRoomSchedule> StudioRoomSchedule { get; set; }
 
+        public virtual Payment Payment { get; set; }
+
         public void Validate()
         {
             AddNotifications(new Contract()
                     .Requires()
                     .IsNull(this.Client, "Client", "The client cannot be null")
                     .IsNull(this.Studio, "Studio", "Its necessary to select the studio for that operation")
+                    .IsNull(this.StudioRoom, "StudioRoom", "Its necessary to select at least one room")
+                    .IsNull(this.StudioRoomSchedule, "StudioRoomSchedule", "Its necessary to select an schedule for your reservation")
                 );
         }
     }

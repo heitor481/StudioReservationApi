@@ -16,6 +16,7 @@ namespace StudioReservation.Data.Map
             builder.HasMany(p => p.Studio);
             builder.HasMany(p => p.StudioRoom);
             builder.HasMany(p => p.StudioRoomSchedule);
+            builder.HasOne(p => p.Payment).WithOne(p => p.Reservation);
         }
     }
 }
