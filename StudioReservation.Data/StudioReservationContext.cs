@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Reflection;
+using Microsoft.EntityFrameworkCore;
 using StudioReservation.Domain.Entities;
 
 namespace StudioReservation.Data
@@ -20,7 +21,14 @@ namespace StudioReservation.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            //this is necessary, because EF Core, doesn`t have the method "Conventions"
+            //that we use to make the configuration of the tables
+            foreach (var item in modelBuilder.Model.GetEntityTypes())
+            {
+                item.SetTableName(item.DisplayName().ToString());
+            }
         }
     }
 }
