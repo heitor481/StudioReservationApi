@@ -22,8 +22,8 @@ namespace StudioReservation.Data.Map
                 a.Property(t => t.ZipCode).IsRequired();
             });
 
-            builder.HasMany(p => p.StudioRoom).WithOne(p => p.Studio);
-            builder.HasMany(p => p.StudioRoomSchedule).WithOne(p => p.Studio);
+            builder.HasMany(p => p.StudioRoom).WithOne(p => p.Studio).OnDelete(DeleteBehavior.Cascade);
+            builder.HasMany(p => p.StudioRoomSchedule).WithOne(p => p.Studio).OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

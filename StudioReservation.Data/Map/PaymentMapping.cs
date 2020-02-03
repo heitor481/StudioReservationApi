@@ -18,7 +18,7 @@ namespace StudioReservation.Data.Map
             builder.Property(p => p.TotalPaid).IsRequired();
             builder.Property(p => p.TotalPaid).IsRequired();
             builder.HasOne(p => p.Client);
-            builder.HasOne(p => p.Reservation).WithOne(p => p.Payment);
+            builder.HasOne(p => p.Reservation).WithOne(p => p.Payment).OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

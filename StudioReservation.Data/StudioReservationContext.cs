@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using StudioReservation.Domain.Entities;
 
 namespace StudioReservation.Data
@@ -9,6 +8,7 @@ namespace StudioReservation.Data
         //on the base part will go the connection string
         public StudioReservationContext(DbContextOptions<StudioReservationContext> options) : base(options)
         {
+            
         }
 
         public DbSet<Client> Client { get; set; }
@@ -17,5 +17,10 @@ namespace StudioReservation.Data
         public DbSet<Studio> Studio { get; set; }
         public DbSet<StudioRoom> StudioRoom { get; set; }
         public DbSet<StudioRoomSchedule> StudioRoomSchedule { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            
+        }
     }
 }
