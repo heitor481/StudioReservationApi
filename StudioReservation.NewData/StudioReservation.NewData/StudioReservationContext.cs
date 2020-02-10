@@ -12,6 +12,11 @@ namespace StudioReservation.NewData
             
         }
 
+        public StudioReservationContext()
+        {
+
+        }
+
         public DbSet<Client> Client { get; set; }
         public DbSet<Payment> Payment { get; set; }
         public DbSet<Reservation> Reservation { get; set; }
