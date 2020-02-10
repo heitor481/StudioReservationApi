@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using StudioReservation.Domain.ValueObjects;
+using StudioReservation.NewDomain.ValueObjects;
 using StudioReservation.Shared.Entity;
 
-namespace StudioReservation.Domain.Entities
+namespace StudioReservation.NewDomain.Entities
 {
     public class Studio : IIdentity
     {

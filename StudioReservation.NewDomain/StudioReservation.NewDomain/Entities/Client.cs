@@ -1,10 +1,10 @@
 ﻿using System;
 using Flunt.Notifications;
 using Flunt.Validations;
-using StudioReservation.Domain.ValueObjects;
+using StudioReservation.NewDomain.ValueObjects;
 using StudioReservation.Shared.Entity;
 
-namespace StudioReservation.Domain.Entities
+namespace StudioReservation.NewDomain.Entities
 {
     public class Client : IIdentity, IValidatable
     {

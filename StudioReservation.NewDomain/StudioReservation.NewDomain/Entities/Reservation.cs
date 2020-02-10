@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Flunt.Validations;
 using StudioReservation.Shared.Entity;
 
-namespace StudioReservation.Domain.Entities
+namespace StudioReservation.NewDomain.Entities
 {
     public class Reservation : IIdentity, IValidatable
     {

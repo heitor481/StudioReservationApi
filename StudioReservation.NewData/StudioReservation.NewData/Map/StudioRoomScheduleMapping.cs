@@ -1,11 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using StudioReservation.Domain.Entities;
+using StudioReservation.NewDomain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace StudioReservation.Data.Map
+namespace StudioReservation.NewData.Map
 {
     public class StudioRoomScheduleMapping : IEntityTypeConfiguration<StudioRoomSchedule>
     {

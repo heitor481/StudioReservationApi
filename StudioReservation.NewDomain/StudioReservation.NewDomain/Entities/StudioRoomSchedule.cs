@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using StudioReservation.Shared.Entity;
 
-namespace StudioReservation.Domain.Entities
+namespace StudioReservation.NewDomain.Entities
 {
     public class StudioRoomSchedule : IIdentity
     {

@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using Microsoft.EntityFrameworkCore;
-using StudioReservation.Domain.Entities;
+using StudioReservation.NewDomain.Entities;
 
-namespace StudioReservation.Data
+namespace StudioReservation.NewData
 {
     public class StudioReservationContext : DbContext
     {

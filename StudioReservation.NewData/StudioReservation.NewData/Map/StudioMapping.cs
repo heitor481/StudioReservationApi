@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using StudioReservation.Domain.Entities;
+using StudioReservation.NewDomain.Entities;
 using System;
 
-namespace StudioReservation.Data.Map
+namespace StudioReservation.NewData.Map
 {
     public class StudioMapping : IEntityTypeConfiguration<Studio>
     {

@@ -1,9 +1,9 @@
 ﻿using System;
 using Flunt.Notifications;
 using Flunt.Validations;
-using StudioReservation.Domain.Enum;
+using StudioReservation.NewDomain.Enum;
 
-namespace StudioReservation.Domain.ValueObjects
+namespace StudioReservation.NewDomain.ValueObjects
 {
     public class Document : Notifiable
     {

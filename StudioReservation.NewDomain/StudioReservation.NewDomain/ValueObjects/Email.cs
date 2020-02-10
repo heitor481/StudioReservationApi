@@ -2,7 +2,7 @@
 using Flunt.Notifications;
 using Flunt.Validations;
 
-namespace StudioReservation.Domain.ValueObjects
+namespace StudioReservation.NewDomain.ValueObjects
 {
     public class Email : Notifiable, IValidatable
     {

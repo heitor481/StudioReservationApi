@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace StudioReservation.Domain.Entities
+namespace StudioReservation.NewDomain.Entities
 {
     public class StudioRoom : IIdentity
     {
