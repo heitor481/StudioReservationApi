@@ -7,6 +7,12 @@ namespace StudioReservation.NewDomain.ValueObjects
 {
     public class Document : Notifiable
     {
+
+        public Document()
+        {
+
+        }
+
         public Document(string clientDocument, EDocumentType documentType)
         {
             this.ClientDocument = clientDocument;

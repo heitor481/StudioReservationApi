@@ -6,6 +6,11 @@ namespace StudioReservation.NewDomain.ValueObjects
 {
     public class Address
     {
+        public Address()
+        {
+
+        }
+
         public Address(string country, string state, string city, string neighborhood, string street, string zipCode)
         {
             this.Country = country;

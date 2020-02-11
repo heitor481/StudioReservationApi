@@ -1,5 +1,4 @@
 ﻿using System;
-using Flunt.Notifications;
 using Flunt.Validations;
 using StudioReservation.NewDomain.ValueObjects;
 using StudioReservation.Shared.Entity;
@@ -24,11 +23,11 @@ namespace StudioReservation.NewDomain.Entities
 
         public DateTime DateBirth { get; set; }
 
-        public Address Address { get; set; }
+        public virtual Address Address { get; set; }
 
-        public Email Email { get; set; }
+        public virtual Email Email { get; set; }
 
-        public Document Document { get; set; }
+        public virtual Document Document { get; set; }
 
         public void Validate()
         {

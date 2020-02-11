@@ -4,8 +4,12 @@ using Flunt.Validations;
 
 namespace StudioReservation.NewDomain.ValueObjects
 {
-    public class Email : Notifiable, IValidatable
+    public class Email : Notifiable
     {
+        public Email()
+        {
+
+        }
 
         public Email(string userEmail, string password, string confirmPassword)
         {
