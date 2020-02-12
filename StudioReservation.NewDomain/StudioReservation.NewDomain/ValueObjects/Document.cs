@@ -5,22 +5,13 @@ using StudioReservation.NewDomain.Enum;
 
 namespace StudioReservation.NewDomain.ValueObjects
 {
-    public class Document : Notifiable
+    public class Document
     {
-
-        public Document()
-        {
-
-        }
 
         public Document(string clientDocument, EDocumentType documentType)
         {
             this.ClientDocument = clientDocument;
             this.DocumentType = documentType;
-
-            AddNotifications(new Contract()
-                    .IsNotNullOrEmpty(clientDocument, "Client document", "Your identification cannot be null")
-                );
         }
 
         public string ClientDocument { get; set; }

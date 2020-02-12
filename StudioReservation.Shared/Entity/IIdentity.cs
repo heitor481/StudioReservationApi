@@ -2,7 +2,7 @@
 
 namespace StudioReservation.Shared.Entity
 {
-    public class IIdentity : Notifiable
+    public class IIdentity
     {
         public int Id { get; set; }
     }

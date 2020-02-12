@@ -4,7 +4,7 @@ using Flunt.Validations;
 
 namespace StudioReservation.NewDomain.ValueObjects
 {
-    public class Email : Notifiable
+    public class Email
     {
         public Email()
         {
@@ -24,13 +24,13 @@ namespace StudioReservation.NewDomain.ValueObjects
 
         public string ConfirmPassword { get; set; }
 
-        public void Validate()
-        {
-            AddNotifications(new Contract()
-                    .IsNullOrEmpty(this.UserEmail, "User Email", "Please insert your email")
-                    .IsNullOrEmpty(this.Password, "Password", "Please insert your password")
-                    .IsEmail(this.UserEmail, "UserEmail", "This is not a valid Email, please try with a valid one")
-                );
-        }
+        //public void Validate()
+        //{
+        //    AddNotifications(new Contract()
+        //            .IsNullOrEmpty(this.UserEmail, "User Email", "Please insert your email")
+        //            .IsNullOrEmpty(this.Password, "Password", "Please insert your password")
+        //            .IsEmail(this.UserEmail, "UserEmail", "This is not a valid Email, please try with a valid one")
+        //        );
+        //}
     }
 }

@@ -18,7 +18,13 @@ namespace StudioReservation.NewData.Map
             builder.Property(p => p.TotalPaid).IsRequired();
             builder.Property(p => p.TotalPaid).IsRequired();
             builder.HasOne(p => p.Client);
-            builder.HasOne(p => p.Reservation).WithOne(p => p.Payment).OnDelete(DeleteBehavior.SetNull);
+            builder.OwnsOne(p => p.ClientDocument, a =>
+            {
+                a.Property(t => t.ClientDocument).IsRequired();
+                a.Property(t => t.DocumentType).IsRequired();
+            });
+            builder.HasOne(p => p.Reservation).WithOne(p => p.Payment)
+                .HasForeignKey<Reservation>(p => p.Id).OnDelete(DeleteBehavior.SetNull);
         }
     }
 }
