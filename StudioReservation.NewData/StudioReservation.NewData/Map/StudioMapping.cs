@@ -23,6 +23,7 @@ namespace StudioReservation.NewData.Map
             });
 
             builder.HasMany(p => p.StudioRoom).WithOne(p => p.Studio).OnDelete(DeleteBehavior.Cascade);
+            //it doenst need to have this here
             builder.HasMany(p => p.StudioRoomSchedule).WithOne(p => p.Studio).OnDelete(DeleteBehavior.Cascade);
         }
     }

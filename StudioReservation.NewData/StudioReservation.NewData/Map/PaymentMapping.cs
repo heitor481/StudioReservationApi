@@ -16,9 +16,8 @@ namespace StudioReservation.NewData.Map
             builder.Property(p => p.ExpiredDate);
             builder.Property(p => p.Total).IsRequired();
             builder.Property(p => p.TotalPaid).IsRequired();
-            builder.Property(p => p.TotalPaid).IsRequired();
             //todo it is one to many relantionship
-            builder.HasOne(p => p.Client);
+            builder.HasOne(p => p.Client).WithMany(p => p.Payment);
             builder.OwnsOne(p => p.ClientDocument, a =>
             {
                 a.Property(t => t.ClientDocument).IsRequired();

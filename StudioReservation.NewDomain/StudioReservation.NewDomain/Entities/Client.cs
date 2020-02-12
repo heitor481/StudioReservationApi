@@ -1,5 +1,5 @@
 ﻿using System;
-using Flunt.Validations;
+using System.Collections.Generic;
 using StudioReservation.NewDomain.ValueObjects;
 using StudioReservation.Shared.Entity;
 
@@ -26,6 +26,10 @@ namespace StudioReservation.NewDomain.Entities
         public virtual Email Email { get; set; }
 
         public virtual Document Document { get; set; }
+
+        public virtual ICollection<Reservation> Reservation { get; set; }
+
+        public virtual ICollection<Payment> Payment { get; set; }
 
     }
 }
