@@ -10,8 +10,8 @@ using StudioReservation.NewData;
 namespace StudioReservation.NewData.Migrations
 {
     [DbContext(typeof(StudioReservationContext))]
-    [Migration("20200211235628_FistMigration")]
-    partial class FistMigration
+    [Migration("20200217133722_FirstMigration")]
+    partial class FirstMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -65,6 +65,9 @@ namespace StudioReservation.NewData.Migrations
                     b.Property<DateTime>("PaymentDate")
                         .HasColumnType("timestamp without time zone");
 
+                    b.Property<int>("ReservationId")
+                        .HasColumnType("integer");
+
                     b.Property<decimal>("Total")
                         .HasColumnType("numeric");
 
@@ -75,13 +78,18 @@ namespace StudioReservation.NewData.Migrations
 
                     b.HasIndex("ClientId");
 
+                    b.HasIndex("ReservationId")
+                        .IsUnique();
+
                     b.ToTable("Payment");
                 });
 
             modelBuilder.Entity("StudioReservation.NewDomain.Entities.Reservation", b =>
                 {
                     b.Property<int>("Id")
-                        .HasColumnType("integer");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
                     b.Property<int?>("ClientId")
                         .HasColumnType("integer");
@@ -92,11 +100,62 @@ namespace StudioReservation.NewData.Migrations
                     b.Property<string>("NumberOfReservation")
                         .HasColumnType("text");
 
+                    b.Property<int>("PaymentId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ClientId");
 
                     b.ToTable("Reservation");
+                });
+
+            modelBuilder.Entity("StudioReservation.NewDomain.Entities.ReservationStudio", b =>
+                {
+                    b.Property<int>("StudioId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ReservationId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("StudioId", "ReservationId");
+
+                    b.HasIndex("ReservationId");
+
+                    b.ToTable("ReservationStudio");
+                });
+
+            modelBuilder.Entity("StudioReservation.NewDomain.Entities.ReservationStudioRoom", b =>
+                {
+                    b.Property<int>("StudioRoomId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ReservationId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("StudioRoomId", "ReservationId");
+
+                    b.HasIndex("ReservationId");
+
+                    b.ToTable("ReservationStudioRoom");
+                });
+
+            modelBuilder.Entity("StudioReservation.NewDomain.Entities.ReservationStudioRoomSchedule", b =>
+                {
+                    b.Property<int>("StudioRoomScheduleId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("ReservationId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("Id")
+                        .HasColumnType("integer");
+
+                    b.HasKey("StudioRoomScheduleId", "ReservationId");
+
+                    b.HasIndex("ReservationId");
+
+                    b.ToTable("ReservationStudioRoomSchedule");
                 });
 
             modelBuilder.Entity("StudioReservation.NewDomain.Entities.Studio", b =>
@@ -106,17 +165,12 @@ namespace StudioReservation.NewData.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<int?>("ReservationId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("StudioName")
                         .IsRequired()
                         .HasColumnType("character varying(100)")
                         .HasMaxLength(100);
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ReservationId");
 
                     b.ToTable("Studio");
                 });
@@ -131,9 +185,6 @@ namespace StudioReservation.NewData.Migrations
                     b.Property<bool?>("IsReserved")
                         .HasColumnType("boolean");
 
-                    b.Property<int?>("ReservationId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("RoomNumber")
                         .HasColumnType("integer");
 
@@ -141,8 +192,6 @@ namespace StudioReservation.NewData.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ReservationId");
 
                     b.HasIndex("StudioId");
 
@@ -165,9 +214,6 @@ namespace StudioReservation.NewData.Migrations
                     b.Property<DateTime>("EndTime")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int?>("ReservationId")
-                        .HasColumnType("integer");
-
                     b.Property<DateTime>("StartTime")
                         .HasColumnType("timestamp without time zone");
 
@@ -178,8 +224,6 @@ namespace StudioReservation.NewData.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("ReservationId");
 
                     b.HasIndex("StudioId");
 
@@ -280,8 +324,14 @@ namespace StudioReservation.NewData.Migrations
             modelBuilder.Entity("StudioReservation.NewDomain.Entities.Payment", b =>
                 {
                     b.HasOne("StudioReservation.NewDomain.Entities.Client", "Client")
-                        .WithMany()
+                        .WithMany("Payment")
                         .HasForeignKey("ClientId");
+
+                    b.HasOne("StudioReservation.NewDomain.Entities.Reservation", "Reservation")
+                        .WithOne("Payment")
+                        .HasForeignKey("StudioReservation.NewDomain.Entities.Payment", "ReservationId")
+                        .OnDelete(DeleteBehavior.SetNull)
+                        .IsRequired();
 
                     b.OwnsOne("StudioReservation.NewDomain.ValueObjects.Document", "ClientDocument", b1 =>
                         {
@@ -310,22 +360,57 @@ namespace StudioReservation.NewData.Migrations
             modelBuilder.Entity("StudioReservation.NewDomain.Entities.Reservation", b =>
                 {
                     b.HasOne("StudioReservation.NewDomain.Entities.Client", "Client")
-                        .WithMany()
+                        .WithMany("Reservation")
                         .HasForeignKey("ClientId");
+                });
 
-                    b.HasOne("StudioReservation.NewDomain.Entities.Payment", "Payment")
-                        .WithOne("Reservation")
-                        .HasForeignKey("StudioReservation.NewDomain.Entities.Reservation", "Id")
-                        .OnDelete(DeleteBehavior.SetNull)
+            modelBuilder.Entity("StudioReservation.NewDomain.Entities.ReservationStudio", b =>
+                {
+                    b.HasOne("StudioReservation.NewDomain.Entities.Reservation", "Reservation")
+                        .WithMany("ReservationStudio")
+                        .HasForeignKey("ReservationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StudioReservation.NewDomain.Entities.Studio", "Studio")
+                        .WithMany("ReservationStudio")
+                        .HasForeignKey("StudioId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("StudioReservation.NewDomain.Entities.ReservationStudioRoom", b =>
+                {
+                    b.HasOne("StudioReservation.NewDomain.Entities.Reservation", "Reservation")
+                        .WithMany("ReservationStudioRoom")
+                        .HasForeignKey("ReservationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StudioReservation.NewDomain.Entities.StudioRoom", "StudioRoom")
+                        .WithMany("ReservationStudioRoom")
+                        .HasForeignKey("StudioRoomId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("StudioReservation.NewDomain.Entities.ReservationStudioRoomSchedule", b =>
+                {
+                    b.HasOne("StudioReservation.NewDomain.Entities.Reservation", "Reservation")
+                        .WithMany("ReservationStudioRoomSchedule")
+                        .HasForeignKey("ReservationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StudioReservation.NewDomain.Entities.StudioRoomSchedule", "StudioRoomSchedule")
+                        .WithMany("ReservationStudioRoomSchedule")
+                        .HasForeignKey("StudioRoomScheduleId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
             modelBuilder.Entity("StudioReservation.NewDomain.Entities.Studio", b =>
                 {
-                    b.HasOne("StudioReservation.NewDomain.Entities.Reservation", null)
-                        .WithMany("Studio")
-                        .HasForeignKey("ReservationId");
-
                     b.OwnsOne("StudioReservation.NewDomain.ValueObjects.Address", "Address", b1 =>
                         {
                             b1.Property<int>("StudioId")
@@ -366,10 +451,6 @@ namespace StudioReservation.NewData.Migrations
 
             modelBuilder.Entity("StudioReservation.NewDomain.Entities.StudioRoom", b =>
                 {
-                    b.HasOne("StudioReservation.NewDomain.Entities.Reservation", null)
-                        .WithMany("StudioRoom")
-                        .HasForeignKey("ReservationId");
-
                     b.HasOne("StudioReservation.NewDomain.Entities.Studio", "Studio")
                         .WithMany("StudioRoom")
                         .HasForeignKey("StudioId")
@@ -378,14 +459,9 @@ namespace StudioReservation.NewData.Migrations
 
             modelBuilder.Entity("StudioReservation.NewDomain.Entities.StudioRoomSchedule", b =>
                 {
-                    b.HasOne("StudioReservation.NewDomain.Entities.Reservation", null)
-                        .WithMany("StudioRoomSchedule")
-                        .HasForeignKey("ReservationId");
-
                     b.HasOne("StudioReservation.NewDomain.Entities.Studio", "Studio")
                         .WithMany("StudioRoomSchedule")
-                        .HasForeignKey("StudioId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("StudioId");
 
                     b.HasOne("StudioReservation.NewDomain.Entities.StudioRoom", "StudioRoom")
                         .WithMany("StudioRoomSchedule")

@@ -4,7 +4,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace StudioReservation.NewData.Migrations
 {
-    public partial class FistMigration : Migration
+    public partial class FirstMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -21,6 +21,19 @@ namespace StudioReservation.NewData.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Client", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Studio",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    StudioName = table.Column<string>(maxLength: 100, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Studio", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -87,57 +100,15 @@ namespace StudioReservation.NewData.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Payment",
+                name: "Reservation",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    NumberOfPayment = table.Column<string>(nullable: true),
-                    PaymentDate = table.Column<DateTime>(nullable: false),
-                    ExpiredDate = table.Column<DateTime>(nullable: false),
-                    Total = table.Column<decimal>(nullable: false),
-                    TotalPaid = table.Column<decimal>(nullable: false),
-                    ClientId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Payment", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Payment_Client_ClientId",
-                        column: x => x.ClientId,
-                        principalTable: "Client",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Payment.ClientDocument#Document",
-                columns: table => new
-                {
-                    PaymentId = table.Column<int>(nullable: false),
-                    ClientDocument = table.Column<string>(nullable: false),
-                    DocumentType = table.Column<int>(nullable: false),
-                    IsDocumentValid = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Payment.ClientDocument#Document", x => x.PaymentId);
-                    table.ForeignKey(
-                        name: "FK_Payment.ClientDocument#Document_Payment_PaymentId",
-                        column: x => x.PaymentId,
-                        principalTable: "Payment",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Reservation",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false),
                     NumberOfReservation = table.Column<string>(nullable: true),
                     DateOfTheReservation = table.Column<DateTime>(nullable: false),
-                    ClientId = table.Column<int>(nullable: true)
+                    ClientId = table.Column<int>(nullable: true),
+                    PaymentId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -146,32 +117,6 @@ namespace StudioReservation.NewData.Migrations
                         name: "FK_Reservation_Client_ClientId",
                         column: x => x.ClientId,
                         principalTable: "Client",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Reservation_Payment_Id",
-                        column: x => x.Id,
-                        principalTable: "Payment",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Studio",
-                columns: table => new
-                {
-                    Id = table.Column<int>(nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    StudioName = table.Column<string>(maxLength: 100, nullable: false),
-                    ReservationId = table.Column<int>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Studio", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Studio_Reservation_ReservationId",
-                        column: x => x.ReservationId,
-                        principalTable: "Reservation",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -207,22 +152,94 @@ namespace StudioReservation.NewData.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     RoomNumber = table.Column<int>(nullable: false),
                     IsReserved = table.Column<bool>(nullable: true),
-                    StudioId = table.Column<int>(nullable: true),
-                    ReservationId = table.Column<int>(nullable: true)
+                    StudioId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_StudioRoom", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_StudioRoom_Reservation_ReservationId",
-                        column: x => x.ReservationId,
-                        principalTable: "Reservation",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_StudioRoom_Studio_StudioId",
                         column: x => x.StudioId,
                         principalTable: "Studio",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Payment",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    NumberOfPayment = table.Column<string>(nullable: true),
+                    PaymentDate = table.Column<DateTime>(nullable: false),
+                    ExpiredDate = table.Column<DateTime>(nullable: false),
+                    Total = table.Column<decimal>(nullable: false),
+                    TotalPaid = table.Column<decimal>(nullable: false),
+                    ClientId = table.Column<int>(nullable: true),
+                    ReservationId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payment", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Payment_Client_ClientId",
+                        column: x => x.ClientId,
+                        principalTable: "Client",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Payment_Reservation_ReservationId",
+                        column: x => x.ReservationId,
+                        principalTable: "Reservation",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReservationStudio",
+                columns: table => new
+                {
+                    ReservationId = table.Column<int>(nullable: false),
+                    StudioId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReservationStudio", x => new { x.StudioId, x.ReservationId });
+                    table.ForeignKey(
+                        name: "FK_ReservationStudio_Reservation_ReservationId",
+                        column: x => x.ReservationId,
+                        principalTable: "Reservation",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ReservationStudio_Studio_StudioId",
+                        column: x => x.StudioId,
+                        principalTable: "Studio",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReservationStudioRoom",
+                columns: table => new
+                {
+                    ReservationId = table.Column<int>(nullable: false),
+                    StudioRoomId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReservationStudioRoom", x => new { x.StudioRoomId, x.ReservationId });
+                    table.ForeignKey(
+                        name: "FK_ReservationStudioRoom_Reservation_ReservationId",
+                        column: x => x.ReservationId,
+                        principalTable: "Reservation",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ReservationStudioRoom_StudioRoom_StudioRoomId",
+                        column: x => x.StudioRoomId,
+                        principalTable: "StudioRoom",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -238,28 +255,66 @@ namespace StudioReservation.NewData.Migrations
                     Duration = table.Column<TimeSpan>(nullable: false),
                     DayOfWeek = table.Column<int>(nullable: false),
                     StudioId = table.Column<int>(nullable: true),
-                    StudioRoomId = table.Column<int>(nullable: true),
-                    ReservationId = table.Column<int>(nullable: true)
+                    StudioRoomId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_StudioRoomSchedule", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_StudioRoomSchedule_Reservation_ReservationId",
-                        column: x => x.ReservationId,
-                        principalTable: "Reservation",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
                         name: "FK_StudioRoomSchedule_Studio_StudioId",
                         column: x => x.StudioId,
                         principalTable: "Studio",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_StudioRoomSchedule_StudioRoom_StudioRoomId",
                         column: x => x.StudioRoomId,
                         principalTable: "StudioRoom",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Payment.ClientDocument#Document",
+                columns: table => new
+                {
+                    PaymentId = table.Column<int>(nullable: false),
+                    ClientDocument = table.Column<string>(nullable: false),
+                    DocumentType = table.Column<int>(nullable: false),
+                    IsDocumentValid = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Payment.ClientDocument#Document", x => x.PaymentId);
+                    table.ForeignKey(
+                        name: "FK_Payment.ClientDocument#Document_Payment_PaymentId",
+                        column: x => x.PaymentId,
+                        principalTable: "Payment",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "ReservationStudioRoomSchedule",
+                columns: table => new
+                {
+                    ReservationId = table.Column<int>(nullable: false),
+                    StudioRoomScheduleId = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ReservationStudioRoomSchedule", x => new { x.StudioRoomScheduleId, x.ReservationId });
+                    table.ForeignKey(
+                        name: "FK_ReservationStudioRoomSchedule_Reservation_ReservationId",
+                        column: x => x.ReservationId,
+                        principalTable: "Reservation",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_ReservationStudioRoomSchedule_StudioRoomSchedule_StudioRoom~",
+                        column: x => x.StudioRoomScheduleId,
+                        principalTable: "StudioRoomSchedule",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -270,29 +325,35 @@ namespace StudioReservation.NewData.Migrations
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Payment_ReservationId",
+                table: "Payment",
+                column: "ReservationId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Reservation_ClientId",
                 table: "Reservation",
                 column: "ClientId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Studio_ReservationId",
-                table: "Studio",
+                name: "IX_ReservationStudio_ReservationId",
+                table: "ReservationStudio",
                 column: "ReservationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudioRoom_ReservationId",
-                table: "StudioRoom",
+                name: "IX_ReservationStudioRoom_ReservationId",
+                table: "ReservationStudioRoom",
+                column: "ReservationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ReservationStudioRoomSchedule_ReservationId",
+                table: "ReservationStudioRoomSchedule",
                 column: "ReservationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StudioRoom_StudioId",
                 table: "StudioRoom",
                 column: "StudioId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_StudioRoomSchedule_ReservationId",
-                table: "StudioRoomSchedule",
-                column: "ReservationId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StudioRoomSchedule_StudioId",
@@ -320,25 +381,34 @@ namespace StudioReservation.NewData.Migrations
                 name: "Payment.ClientDocument#Document");
 
             migrationBuilder.DropTable(
+                name: "ReservationStudio");
+
+            migrationBuilder.DropTable(
+                name: "ReservationStudioRoom");
+
+            migrationBuilder.DropTable(
+                name: "ReservationStudioRoomSchedule");
+
+            migrationBuilder.DropTable(
                 name: "Studio.Address#Address");
-
-            migrationBuilder.DropTable(
-                name: "StudioRoomSchedule");
-
-            migrationBuilder.DropTable(
-                name: "StudioRoom");
-
-            migrationBuilder.DropTable(
-                name: "Studio");
-
-            migrationBuilder.DropTable(
-                name: "Reservation");
 
             migrationBuilder.DropTable(
                 name: "Payment");
 
             migrationBuilder.DropTable(
+                name: "StudioRoomSchedule");
+
+            migrationBuilder.DropTable(
+                name: "Reservation");
+
+            migrationBuilder.DropTable(
+                name: "StudioRoom");
+
+            migrationBuilder.DropTable(
                 name: "Client");
+
+            migrationBuilder.DropTable(
+                name: "Studio");
         }
     }
 }

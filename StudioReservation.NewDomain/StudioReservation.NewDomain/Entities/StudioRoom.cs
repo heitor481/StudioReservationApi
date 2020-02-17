@@ -13,6 +13,8 @@ namespace StudioReservation.NewDomain.Entities
 
         public virtual Studio Studio { get; set; }
 
+        public ICollection<ReservationStudioRoom> ReservationStudioRoom { get; set; }
+
         public virtual ICollection<StudioRoomSchedule> StudioRoomSchedule { get; set; }
     }
 }

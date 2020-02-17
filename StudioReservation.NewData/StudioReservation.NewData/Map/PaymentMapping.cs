@@ -24,7 +24,7 @@ namespace StudioReservation.NewData.Map
                 a.Property(t => t.DocumentType).IsRequired();
             });
             builder.HasOne(p => p.Reservation).WithOne(p => p.Payment)
-                .HasForeignKey<Reservation>(p => p.Id).OnDelete(DeleteBehavior.SetNull);
+                .HasForeignKey<Reservation>(p => p.PaymentId).OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

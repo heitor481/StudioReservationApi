@@ -31,6 +31,8 @@ namespace StudioReservation.NewDomain.Entities
 
         public virtual Client Client { get; set; }
 
+        public int ReservationId { get; set; }
+
         public virtual Document ClientDocument { get; set; }
 
         public virtual Reservation Reservation { get; set; }
