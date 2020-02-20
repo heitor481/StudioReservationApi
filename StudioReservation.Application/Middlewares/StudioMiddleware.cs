@@ -1,23 +1,23 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using StudioReservation.Application.Middlewares.Interfaces;
-using StudioReservation.NewData;
+using StudioReservation.NewData.Repository.Interfaces;
 using StudioReservation.NewDomain.Entities;
 
 namespace StudioReservation.Application.Middlewares 
 {
     public class StudioMiddleware : IStudioMiddleware
     {
-        private readonly StudioReservationContext dbContext;
+        private readonly IStudioRepository studioRepository;
 
-        public StudioMiddleware(StudioReservationContext dbContext)
+        public StudioMiddleware(IStudioRepository studioRepository)
         {
-            this.dbContext = dbContext;
+            this.studioRepository = studioRepository;
         }
 
-        public Task<ICollection<Studio>> ListAllStudioAvaiable()
+        public async Task<ICollection<Studio>> ListAllStudioAvaiable()
         {
-            throw new System.NotImplementedException();
+            return await this.studioRepository.GetAllStudiosAvailable();
         }
     }
 }

@@ -21,5 +21,6 @@
     <ProjectReference Include="..\StudioReservation.NewDomain\StudioReservation.NewDomain\StudioReservation.NewDomain.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+    <ProjectReference Include="..\StudioReservation.Application\StudioReservation.Application.csproj" />
   </ItemGroup>
 </Project>

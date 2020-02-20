@@ -4,7 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using StudioReservation.Application.Middlewares;
+using StudioReservation.Application.Middlewares.Interfaces;
 using StudioReservation.NewData;
+using StudioReservation.NewData.Repository;
+using StudioReservation.NewData.Repository.Interfaces;
 
 namespace StudioReservation.Api
 {
@@ -23,6 +27,11 @@ namespace StudioReservation.Api
             services.AddControllers();
             services.AddDbContext<StudioReservationContext>(options =>
             options.UseNpgsql(Configuration.GetConnectionString("PostgreSqlConnectionString")));
+
+            //this is for dependency injection
+            services.AddTransient<StudioReservationContext>();
+            services.AddScoped<IStudioMiddleware, StudioMiddleware>();
+            services.AddScoped<IStudioRepository, StudioRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

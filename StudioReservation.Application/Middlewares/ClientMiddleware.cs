@@ -9,11 +9,9 @@ namespace StudioReservation.Application.Middlewares
 {
     public class ClientMiddleware : IClientMiddleware
     {
-        private readonly StudioReservationContext dbContext;
-
-        public ClientMiddleware(StudioReservationContext dbContext)
+        public ClientMiddleware()
         {
-            this.dbContext = dbContext;
+            
         }
 
         public Task<Client> CreateClient(string firstName, string lastName, DateTime dateOfBirth, Document document, Email email, Address address)
