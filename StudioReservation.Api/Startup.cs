@@ -9,6 +9,7 @@ using StudioReservation.Application.Middlewares.Interfaces;
 using StudioReservation.NewData;
 using StudioReservation.NewData.Repository;
 using StudioReservation.NewData.Repository.Interfaces;
+using Newtonsoft.Json;
 
 namespace StudioReservation.Api
 {
@@ -24,7 +25,11 @@ namespace StudioReservation.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllers().AddNewtonsoftJson(options => 
+            {
+                options.SerializerSettings.Formatting = Formatting.Indented;
+            });
+
             services.AddDbContext<StudioReservationContext>(options =>
             options.UseNpgsql(Configuration.GetConnectionString("PostgreSqlConnectionString")));
 
