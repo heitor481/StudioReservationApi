@@ -1,7 +1,6 @@
 using System;
 using System.Threading.Tasks;
 using StudioReservation.Application.Middlewares.Interfaces;
-using StudioReservation.NewData;
 using StudioReservation.NewDomain.Entities;
 using StudioReservation.NewDomain.ValueObjects;
 

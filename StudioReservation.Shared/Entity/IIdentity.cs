@@ -1,6 +1,4 @@
-﻿using Flunt.Notifications;
-
-namespace StudioReservation.Shared.Entity
+﻿namespace StudioReservation.Shared.Entity
 {
     public class IIdentity
     {
