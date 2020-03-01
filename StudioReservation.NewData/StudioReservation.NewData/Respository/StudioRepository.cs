@@ -15,8 +15,7 @@ namespace StudioReservation.NewData.Repository
         {
             this.context = context;
         }
-
-        
+       
         //This tracking is necessary, because, EF Core 3 will need a tracking when its returning an entire entity not only fields
         //If you just select the fields of the entity, it wont need the AsNoTracking
         //But, I am selecting the entire Address Owned entity

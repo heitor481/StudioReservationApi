@@ -14,7 +14,7 @@ namespace StudioReservation.NewData
 
         public StudioReservationContext()
         {
-
+            
         }
 
         public DbSet<Client> Client { get; set; }
