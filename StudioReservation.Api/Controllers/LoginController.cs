@@ -21,6 +21,7 @@ namespace StudioReservation.Api.Controllers
         public async Task<IActionResult> Login(UserRequest userRequest) 
         {
             var userViewModel = await this.loginMiddleware.Authenticate(userRequest.UserName, userRequest.PassWord);
+            if(userViewModel == null) return BadRequest();
             return Ok(Task.FromResult(userViewModel));
         }
     }

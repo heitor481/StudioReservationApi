@@ -36,7 +36,7 @@ namespace StudioReservation.Application.Middlewares
 
             //here you shouldn`t return an exception, but, a notification
             if(result == null) {
-                throw new Exception($"The user with{username} and {password} was not found");
+                return null;
             } 
 
             var userViewModel = new UserViewModel() 
