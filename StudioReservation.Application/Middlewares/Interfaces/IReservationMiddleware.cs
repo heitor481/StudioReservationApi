@@ -7,9 +7,9 @@ namespace StudioReservation.Application.Middlewares.Interfaces
 {
     public interface IReservationMiddleware 
     {
-        Task<Reservation> CreateReservation(DateTime dateOfTheReservation, Client client, 
-        ICollection<ReservationStudio> studioReservation,
-        ICollection<ReservationStudioRoom> studioReservationRoom,
-        ICollection<ReservationStudioRoomSchedule> studioReservationRoomSchedule);
+        Task<Reservation> CreateReservation(DateTime dateOfTheReservation, Client clientReservation, 
+        ICollection<Studio> studios,
+        ICollection<StudioRoom> studioRooms,
+        ICollection<StudioRoomSchedule> studioRoomSchedules);
     }
 }

@@ -69,6 +69,7 @@ namespace StudioReservation.Api
                 services.AddScoped<IReservationMiddleware, ReservationMiddleware>();
                 services.AddScoped<ILoginRepository, LoginRepository>();
                 services.AddScoped<IStudioRepository, StudioRepository>();
+                services.AddScoped<IClientRepository, ClientRepository>();
                 services.AddScoped<IReservationRepository, ReservationRepository>();
             #endregion
                    
