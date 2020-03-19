@@ -20,7 +20,7 @@ namespace StudioReservation.Api.Controllers
         public async Task<IActionResult> GetAllStudios() 
         {
             var result = await this.studioMiddleware.ListAllStudioAvaiable();
-            return Ok(Task.FromResult(result));
+            return Ok(result);
         }
     }
 }

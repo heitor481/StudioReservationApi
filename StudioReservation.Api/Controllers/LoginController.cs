@@ -22,7 +22,7 @@ namespace StudioReservation.Api.Controllers
         {
             var userViewModel = await this.loginMiddleware.Authenticate(userRequest.UserName, userRequest.PassWord);
             if(userViewModel == null) return BadRequest();
-            return Ok(Task.FromResult(userViewModel));
+            return Ok(userViewModel);
         }
     }
 }
