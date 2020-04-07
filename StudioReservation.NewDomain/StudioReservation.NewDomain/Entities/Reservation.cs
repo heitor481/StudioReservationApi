@@ -27,6 +27,8 @@ namespace StudioReservation.NewDomain.Entities
 
         public virtual Client Client { get; set; }
 
+        public bool? IsCanceled { get; set; }
+
         public virtual ICollection<ReservationStudio> ReservationStudio { get; set; }
 
         public ICollection<ReservationStudioRoom> ReservationStudioRoom { get; set; }

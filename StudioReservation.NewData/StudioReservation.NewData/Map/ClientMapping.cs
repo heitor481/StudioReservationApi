@@ -13,6 +13,7 @@ namespace StudioReservation.NewData.Map
             builder.Property(p => p.FirstName).IsFixedLength().IsRequired();
             builder.Property(p => p.LastName).IsFixedLength().IsRequired();
             builder.Property(p => p.DateBirth).IsRequired();
+            builder.Property(p => p.IsActive);
             builder.OwnsOne(p => p.Address, a =>
             {
                 a.Property(t => t.Country).IsRequired();

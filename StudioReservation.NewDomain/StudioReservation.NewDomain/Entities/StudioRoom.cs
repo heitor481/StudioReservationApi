@@ -16,5 +16,7 @@ namespace StudioReservation.NewDomain.Entities
         public ICollection<ReservationStudioRoom> ReservationStudioRoom { get; set; }
 
         public virtual ICollection<StudioRoomSchedule> StudioRoomSchedule { get; set; }
+
+        public bool? IsDeleted { get; set; }
     }
 }

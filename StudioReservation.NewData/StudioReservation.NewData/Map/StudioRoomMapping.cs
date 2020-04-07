@@ -15,6 +15,7 @@ namespace StudioReservation.NewData.Map
             builder.HasKey(p => p.Id);
             builder.Property(p => p.RoomNumber);
             builder.Property(p => p.IsReserved);
+            builder.Property(p => p.IsDeleted);
             builder.HasOne(p => p.Studio).WithMany(p => p.StudioRoom).OnDelete(DeleteBehavior.Cascade);
             builder.HasMany(p => p.StudioRoomSchedule).WithOne(p => p.StudioRoom).OnDelete(DeleteBehavior.Cascade);
         }

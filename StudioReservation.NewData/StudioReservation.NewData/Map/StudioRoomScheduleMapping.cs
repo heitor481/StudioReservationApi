@@ -17,6 +17,7 @@ namespace StudioReservation.NewData.Map
             builder.Property(p => p.EndTime);
             builder.Property(p => p.Duration);
             builder.Property(p => p.DayOfWeek);
+            builder.Property(p => p.IsDeleted);
             builder.HasOne(p => p.Studio).WithMany(p => p.StudioRoomSchedule);
             builder.HasOne(p => p.StudioRoom).WithMany(p => p.StudioRoomSchedule);
         }
