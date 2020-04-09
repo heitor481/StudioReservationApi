@@ -1,12 +1,13 @@
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using StudioReservation.Api.Models;
 using StudioReservation.Application.Middlewares.Interfaces;
 
 namespace StudioReservation.Api.Controllers
 {
     [Route("studio")]
-    [ApiController]
-    public class StudioController : ControllerBase
+    public class StudioController : BaseApi
     {
         private readonly IStudioMiddleware studioMiddleware;
 
@@ -17,10 +18,11 @@ namespace StudioReservation.Api.Controllers
 
         [HttpGet]
         [Route("v1/api/getAllStudios")]
-        public async Task<IActionResult> GetAllStudios() 
+        public async Task<ApiResponse<object>> GetAllStudios() 
         {
             var result = await this.studioMiddleware.ListAllStudioAvaiable();
-            return Ok(result);
+            if (result == null) return CreateResponse(HttpStatusCode.BadRequest, result);
+            return CreateResponse(HttpStatusCode.OK, result);
         }
     }
 }

@@ -1,13 +1,14 @@
+using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using StudioReservation.Api.Models;
 using StudioReservation.Application.Middlewares.Interfaces;
 using StudioReservation.NewDomain.ViewModel;
 
 namespace StudioReservation.Api.Controllers
 {
-    [ApiController]
     [Route("authenticate")]
-    public class LoginController : ControllerBase
+    public class LoginController : BaseApi
     {
         private readonly ILoginMiddleware loginMiddleware;
 
@@ -18,11 +19,11 @@ namespace StudioReservation.Api.Controllers
 
         [HttpPost]
         [Route("v1/api/login")]
-        public async Task<IActionResult> Login(UserRequest userRequest) 
+        public async Task<ApiResponse<object>> Login(UserRequest userRequest) 
         {
             var userViewModel = await this.loginMiddleware.Authenticate(userRequest.UserName, userRequest.PassWord);
-            if(userViewModel == null) return BadRequest();
-            return Ok(userViewModel);
+            if(userViewModel == null) return CreateResponse(HttpStatusCode.BadRequest, userViewModel);
+            return CreateResponse(HttpStatusCode.OK, userViewModel);
         }
     }
 }
