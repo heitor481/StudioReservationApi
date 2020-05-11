@@ -29,4 +29,7 @@
     </ProjectReference>
     <ProjectReference Include="..\StudioReservation.Application\StudioReservation.Application.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
 </Project>

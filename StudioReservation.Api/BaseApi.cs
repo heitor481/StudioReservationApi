@@ -1,31 +1,43 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using StudioReservation.Api.Models;
+using StudioReservation.Shared.Entity;
+using StudioReservation.Shared.Error;
 using System.Net;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace StudioReservation.Api
 {
     [ApiController]
     public class BaseApi : ControllerBase
     {
+        private readonly Error error;
+        public BaseApi(Error error)
+        {
+            this.error = error;
+        }
+
         protected ApiResponse<object> CreateResponse(HttpStatusCode statusCode, object result)
         {
             if (statusCode == HttpStatusCode.BadRequest)
             {
-                return new ApiResponse<object>
+                if (this.error.Message.Count > 0) 
                 {
-                    Data = result,
-                    StatusCode = HttpStatusCode.BadRequest
-                };
+                    return new ApiResponse<object>
+                    {
+                        StatusCode = HttpStatusCode.BadRequest,
+                        Error = this.error
+                    };
+                }
             }
             else
             {
                 return new ApiResponse<object>
                 {
-                    Data = result,
-                    StatusCode = HttpStatusCode.OK
+                    StatusCode = HttpStatusCode.OK,
+                    Data = result
                 };
             }
+
+            return null;
         }
     }
 }
