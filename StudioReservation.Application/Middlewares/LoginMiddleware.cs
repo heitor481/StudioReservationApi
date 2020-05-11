@@ -8,6 +8,8 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using Microsoft.Extensions.Options;
+using StudioReservation.Shared.Entity;
+using StudioReservation.Shared.Error;
 
 namespace StudioReservation.Application.Middlewares 
 {
@@ -15,21 +17,27 @@ namespace StudioReservation.Application.Middlewares
     {
         private readonly ILoginRepository loginRepository;
         private readonly IOptions<AppSettings> appSettings;
+        private readonly Error error;
 
-        public LoginMiddleware(ILoginRepository loginRepository, IOptions<AppSettings> appSettings)
+        public LoginMiddleware(ILoginRepository loginRepository, IOptions<AppSettings> appSettings, Error error)
         {
             this.loginRepository = loginRepository;
             this.appSettings = appSettings;
+            this.error = error;
         }
 
-        public async Task<UserViewModel> Authenticate(string username, string password)
+        public async Task<ApiResponse<UserViewModel>> Authenticate(string username, string password)
         {
+            ApiResponse<UserViewModel> apiResponse = new ApiResponse<UserViewModel>();
+
             if(username == "") {
-                throw new Exception("Please, type your username");
+                this.error.Message.Add("Please, type your username");
+                apiResponse.Error = this.error;
             }
 
             if(password == "") {
-                throw new Exception("Please, type your password");
+                this.error.Message.Add("Please, type your password");
+                apiResponse.Error = this.error;
             }
 
             var result = await this.loginRepository.Authenticate(username, password);
@@ -50,7 +58,7 @@ namespace StudioReservation.Application.Middlewares
 
             userViewModel.Token = this.GenerateTokenForUser(userViewModel.Id);
 
-            return userViewModel;
+            return apiResponse;
         }
 
         private string GenerateTokenForUser(int userId) 

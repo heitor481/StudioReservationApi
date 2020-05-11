@@ -1,9 +1,9 @@
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using StudioReservation.Api.Models;
 using StudioReservation.Application.Middlewares.Interfaces;
 using StudioReservation.NewDomain.ViewModel;
+using StudioReservation.Shared.Entity;
 
 namespace StudioReservation.Api.Controllers
 {
