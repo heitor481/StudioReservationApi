@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using StudioReservation.Application.Middlewares.Interfaces;
 using StudioReservation.NewDomain.ViewModel;
 using StudioReservation.Shared.Entity;
+using StudioReservation.Shared.Error;
 
 namespace StudioReservation.Api.Controllers
 {
@@ -12,7 +13,7 @@ namespace StudioReservation.Api.Controllers
     {
         private readonly ILoginMiddleware loginMiddleware;
 
-        public LoginController(ILoginMiddleware loginMiddleware)
+        public LoginController(ILoginMiddleware loginMiddleware, Error error) : base(error)
         {
             this.loginMiddleware = loginMiddleware;
         }

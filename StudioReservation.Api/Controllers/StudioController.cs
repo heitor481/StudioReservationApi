@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StudioReservation.Application.Middlewares.Interfaces;
 using StudioReservation.Shared.Entity;
+using StudioReservation.Shared.Error;
 
 namespace StudioReservation.Api.Controllers
 {
@@ -11,7 +12,7 @@ namespace StudioReservation.Api.Controllers
     {
         private readonly IStudioMiddleware studioMiddleware;
 
-        public StudioController(IStudioMiddleware studioMiddleware)
+        public StudioController(IStudioMiddleware studioMiddleware, Error error) : base(error)
         {
             this.studioMiddleware = studioMiddleware;
         }

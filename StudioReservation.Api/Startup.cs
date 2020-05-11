@@ -14,6 +14,7 @@ using StudioReservation.NewDomain.ViewModel;
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using StudioReservation.Shared.Error;
 
 namespace StudioReservation.Api
 {
@@ -71,6 +72,7 @@ namespace StudioReservation.Api
                 services.AddScoped<IStudioRepository, StudioRepository>();
                 services.AddScoped<IClientRepository, ClientRepository>();
                 services.AddScoped<IReservationRepository, ReservationRepository>();
+                services.AddScoped<Error>();
             #endregion
                    
         }

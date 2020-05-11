@@ -26,18 +26,14 @@ namespace StudioReservation.Application.Middlewares
             this.error = error;
         }
 
-        public async Task<ApiResponse<UserViewModel>> Authenticate(string username, string password)
+        public async Task<UserViewModel> Authenticate(string username, string password)
         {
-            ApiResponse<UserViewModel> apiResponse = new ApiResponse<UserViewModel>();
-
             if(username == "") {
                 this.error.Message.Add("Please, type your username");
-                apiResponse.Error = this.error;
             }
 
             if(password == "") {
                 this.error.Message.Add("Please, type your password");
-                apiResponse.Error = this.error;
             }
 
             var result = await this.loginRepository.Authenticate(username, password);
@@ -58,7 +54,7 @@ namespace StudioReservation.Application.Middlewares
 
             userViewModel.Token = this.GenerateTokenForUser(userViewModel.Id);
 
-            return apiResponse;
+            return userViewModel;
         }
 
         private string GenerateTokenForUser(int userId) 

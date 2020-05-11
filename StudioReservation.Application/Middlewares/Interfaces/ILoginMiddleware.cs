@@ -6,6 +6,6 @@ namespace StudioReservation.Application.Middlewares.Interfaces
 {
     public interface ILoginMiddleware 
     {
-        Task<ApiResponse<UserViewModel>> Authenticate(string username, string password);
+        Task<UserViewModel> Authenticate(string username, string password);
     }
 }

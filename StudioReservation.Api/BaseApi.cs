@@ -2,30 +2,42 @@
 using StudioReservation.Shared.Entity;
 using StudioReservation.Shared.Error;
 using System.Net;
+using System.Threading;
 
 namespace StudioReservation.Api
 {
     [ApiController]
     public class BaseApi : ControllerBase
     {
-        protected ApiResponse<object> CreateResponse(HttpStatusCode statusCode, ApiResponse<object> result)
+        private readonly Error error;
+        public BaseApi(Error error)
+        {
+            this.error = error;
+        }
+
+        protected ApiResponse<object> CreateResponse(HttpStatusCode statusCode, object result)
         {
             if (statusCode == HttpStatusCode.BadRequest)
             {
-                return new ApiResponse<object>
+                if (this.error.Message.Count > 0) 
                 {
-                    StatusCode = HttpStatusCode.BadRequest,
-                    Error = result.Error
-                };
+                    return new ApiResponse<object>
+                    {
+                        StatusCode = HttpStatusCode.BadRequest,
+                        Error = this.error
+                    };
+                }
             }
             else
             {
                 return new ApiResponse<object>
                 {
                     StatusCode = HttpStatusCode.OK,
-                    Data = result.Data
+                    Data = result
                 };
             }
+
+            return null;
         }
     }
 }
