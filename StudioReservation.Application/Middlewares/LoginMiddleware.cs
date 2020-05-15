@@ -38,8 +38,9 @@ namespace StudioReservation.Application.Middlewares
 
             var result = await this.loginRepository.Authenticate(username, password);
 
-            //here you shouldn`t return an exception, but, a notification
-            if(result == null) {
+            if(result == null) 
+            {
+                this.error.Message.Add($"We could´t find any user with this {username} and {password}");
                 return null;
             } 
 

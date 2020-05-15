@@ -1,5 +1,6 @@
 using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using StudioReservation.Application.Middlewares.Interfaces;
 using StudioReservation.Shared.Entity;
@@ -8,6 +9,7 @@ using StudioReservation.Shared.Error;
 namespace StudioReservation.Api.Controllers
 {
     [Route("studio")]
+    [Authorize("Bearer")]
     public class StudioController : BaseApi
     {
         private readonly IStudioMiddleware studioMiddleware;

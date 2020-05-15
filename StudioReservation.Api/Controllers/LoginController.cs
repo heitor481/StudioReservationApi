@@ -26,5 +26,6 @@ namespace StudioReservation.Api.Controllers
             if(userViewModel == null) return CreateResponse(HttpStatusCode.BadRequest, userViewModel);
             return CreateResponse(HttpStatusCode.OK, userViewModel);
         }
+
     }
 }
