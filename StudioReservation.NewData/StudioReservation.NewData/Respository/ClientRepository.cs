@@ -17,7 +17,7 @@ namespace StudioReservation.NewData.Repository
 
         public async Task<Client> FindClientById(int clientId)
         {
-            return await this.context.Client.SingleOrDefaultAsync(options => options.Id == clientId);
+            return await this.context.Client.FindAsync(clientId);
         }
     }
 }

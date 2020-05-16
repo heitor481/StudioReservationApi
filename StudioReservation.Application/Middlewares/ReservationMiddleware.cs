@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using StudioReservation.Application.Middlewares.Interfaces;
 using StudioReservation.NewData.Repository.Interfaces;
 using StudioReservation.NewDomain.Entities;
+using StudioReservation.Shared.Error;
 
 namespace StudioReservation.Application.Middlewares 
 {
@@ -11,16 +12,18 @@ namespace StudioReservation.Application.Middlewares
     {
         private readonly IReservationRepository reservationRepository;
         private readonly IStudioRepository studioRepository;
-
         private readonly IClientRepository clientRepository;
+        private readonly Error error;
 
         public ReservationMiddleware(IReservationRepository reservationRepository, 
         IStudioRepository studioRepository, 
-        IClientRepository clientRepository)
+        IClientRepository clientRepository,
+        Error error)
         {
             this.reservationRepository = reservationRepository;
             this.studioRepository = studioRepository;
             this.clientRepository = clientRepository;
+            this.error = error;
         }
 
         //It has to change to use a collection of studio, rooms and schedule
@@ -38,7 +41,8 @@ namespace StudioReservation.Application.Middlewares
 
             if(studios.Count == 0) 
             {
-                throw new Exception("It needs to have at least one studio");  
+                this.error.Message.Add("You must select at least one studio to make the reservation");
+                return null;
             } 
 
             else 
@@ -47,7 +51,7 @@ namespace StudioReservation.Application.Middlewares
                 {
                     Studio studio = await this.studioRepository.GetStudiosById(studioReserved.Id);
 
-                    if(studio == null) new Exception("We havent found the studio you selected");
+                    if(studio == null) new Exception("We haven't found the studio you selected");
 
                     //If I remember well, the entity framework will take care to generate the reservation and the Id automatically
                     ReservationStudio studioInReservation = new ReservationStudio 

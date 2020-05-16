@@ -33,7 +33,7 @@ namespace StudioReservation.NewData.Repository
 
         public async Task<Studio> GetStudiosById(int studioId)
         {
-            return await this.context.Studio.SingleOrDefaultAsync(cp => cp.Id == studioId);
+            return await this.context.Studio.FindAsync(studioId);
         }
     }
 }
