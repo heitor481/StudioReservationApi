@@ -6,7 +6,7 @@ using StudioReservation.NewData.Repository.Interfaces;
 using StudioReservation.NewDomain.Entities;
 using StudioReservation.Shared.Error;
 
-namespace StudioReservation.Application.Middlewares 
+namespace StudioReservation.Application.Middlewares
 {
     public class ReservationMiddleware : IReservationMiddleware
     {
@@ -15,8 +15,8 @@ namespace StudioReservation.Application.Middlewares
         private readonly IClientRepository clientRepository;
         private readonly Error error;
 
-        public ReservationMiddleware(IReservationRepository reservationRepository, 
-        IStudioRepository studioRepository, 
+        public ReservationMiddleware(IReservationRepository reservationRepository,
+        IStudioRepository studioRepository,
         IClientRepository clientRepository,
         Error error)
         {
@@ -27,34 +27,38 @@ namespace StudioReservation.Application.Middlewares
         }
 
         //It has to change to use a collection of studio, rooms and schedule
-        public async Task<Reservation> CreateReservation(DateTime dateOfTheReservation, Client clientReservation, 
-        ICollection<Studio> studios, 
-        ICollection<StudioRoom> studioRooms, 
+        public async Task<Reservation> CreateReservation(DateTime dateOfTheReservation, Client clientReservation,
+        ICollection<Studio> studios,
+        ICollection<StudioRoom> studioRooms,
         ICollection<StudioRoomSchedule> studioRoomSchedules)
         {
             Client client = await this.clientRepository.FindClientById(clientReservation.Id);
             Reservation reservation = null;
 
-            if(client == null) return null;
+            if (client == null) return null;
 
             reservation.Client = client;
 
-            if(studios.Count == 0) 
+            if (studios.Count == 0)
             {
                 this.error.Message.Add("You must select at least one studio to make the reservation");
                 return null;
-            } 
+            }
 
-            else 
+            else
             {
-                foreach(var studioReserved in studios) 
+                foreach (var studioReserved in studios)
                 {
                     Studio studio = await this.studioRepository.GetStudiosById(studioReserved.Id);
 
-                    if(studio == null) new Exception("We haven't found the studio you selected");
+                    if (studio == null)
+                    {
+                        this.error.Message.Add("We haven't found the studio you selected");
+                        return null;
+                    }
 
                     //If I remember well, the entity framework will take care to generate the reservation and the Id automatically
-                    ReservationStudio studioInReservation = new ReservationStudio 
+                    ReservationStudio studioInReservation = new ReservationStudio
                     {
                         Studio = studio
                     };

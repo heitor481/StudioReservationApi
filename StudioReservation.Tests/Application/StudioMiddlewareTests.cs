@@ -2,6 +2,7 @@
 using StudioReservation.Application.Middlewares;
 using StudioReservation.Application.Middlewares.Interfaces;
 using StudioReservation.NewData.Repository.Interfaces;
+using StudioReservation.NewDomain.Entities;
 using StudioReservation.NewDomain.ValueObjects;
 using StudioReservation.NewDomain.ViewModel;
 using System.Collections.Generic;

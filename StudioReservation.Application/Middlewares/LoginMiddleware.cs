@@ -30,10 +30,12 @@ namespace StudioReservation.Application.Middlewares
         {
             if(username == "") {
                 this.error.Message.Add("Please, type your username");
+                return null;
             }
 
             if(password == "") {
                 this.error.Message.Add("Please, type your password");
+                return null;
             }
 
             var result = await this.loginRepository.Authenticate(username, password);
