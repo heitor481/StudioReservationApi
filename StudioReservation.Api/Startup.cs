@@ -16,6 +16,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using StudioReservation.Shared.Error;
 using Microsoft.AspNetCore.Authorization;
+using System;
+using StudioReservation.Shared;
+using StudioReservation.Shared.Utils;
 
 namespace StudioReservation.Api
 {
@@ -37,7 +40,7 @@ namespace StudioReservation.Api
             });
 
             services.AddDbContext<StudioReservationContext>(options =>
-            options.UseNpgsql(Configuration.GetConnectionString("PostgreSqlConnectionString")));
+            options.UseNpgsql(Environment.GetEnvironmentVariable("CONNECTION_STRING")));
 
             #region JWT Token
                 var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -80,6 +83,7 @@ namespace StudioReservation.Api
                 services.AddScoped<IStudioRepository, StudioRepository>();
                 services.AddScoped<IClientRepository, ClientRepository>();
                 services.AddScoped<IReservationRepository, ReservationRepository>();
+                services.AddScoped<IEnvironmentVariable, EnvironmentVariable>();
                 services.AddScoped<Error>();
             #endregion
                    
