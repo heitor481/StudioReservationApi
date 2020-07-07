@@ -1,5 +1,4 @@
-﻿using System;
-namespace StudioReservation.NewDomain.Enum
+﻿namespace StudioReservation.NewDomain.Enum
 {
     public enum EDocumentType
     {

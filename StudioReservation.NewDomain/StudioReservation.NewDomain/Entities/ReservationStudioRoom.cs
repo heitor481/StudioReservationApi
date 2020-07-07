@@ -1,8 +1,3 @@
-using System;
-using System.Collections.Generic;
-using Flunt.Validations;
-using StudioReservation.Shared.Entity;
-
 namespace StudioReservation.NewDomain.Entities
 {
     public class ReservationStudioRoom

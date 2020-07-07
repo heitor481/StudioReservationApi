@@ -1,8 +1,7 @@
 using System.Threading.Tasks;
 using StudioReservation.NewDomain.ViewModel;
-using StudioReservation.Shared.Entity;
 
-namespace StudioReservation.Application.Middlewares.Interfaces 
+namespace StudioReservation.Application.Middlewares.Interfaces
 {
     public interface ILoginMiddleware 
     {

@@ -2,7 +2,6 @@
 using StudioReservation.Shared.Entity;
 using StudioReservation.Shared.Error;
 using System.Net;
-using System.Threading;
 
 namespace StudioReservation.Api
 {

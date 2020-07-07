@@ -1,7 +1,4 @@
-﻿using System;
-using Flunt.Notifications;
-using Flunt.Validations;
-using StudioReservation.NewDomain.Enum;
+﻿using StudioReservation.NewDomain.Enum;
 
 namespace StudioReservation.NewDomain.ValueObjects
 {

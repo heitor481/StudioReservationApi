@@ -9,7 +9,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using StudioReservation.Shared.Error;
 using StudioReservation.Shared.Utils;
-using System.Collections.Generic;
 
 namespace StudioReservation.Application.Middlewares
 {

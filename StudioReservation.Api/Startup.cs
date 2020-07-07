@@ -17,7 +17,6 @@ using Microsoft.IdentityModel.Tokens;
 using StudioReservation.Shared.Error;
 using Microsoft.AspNetCore.Authorization;
 using System;
-using StudioReservation.Shared;
 using StudioReservation.Shared.Utils;
 
 namespace StudioReservation.Api

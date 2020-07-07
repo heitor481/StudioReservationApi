@@ -1,5 +1,4 @@
 ﻿using System.Net;
-using StudioReservation.Shared.Error;
 
 namespace StudioReservation.Shared.Entity
 {

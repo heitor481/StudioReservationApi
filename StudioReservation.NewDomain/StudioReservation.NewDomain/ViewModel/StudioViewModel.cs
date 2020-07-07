@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using StudioReservation.NewDomain.ValueObjects;
 
 namespace StudioReservation.NewDomain.ViewModel

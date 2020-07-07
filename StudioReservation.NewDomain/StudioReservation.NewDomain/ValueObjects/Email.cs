@@ -1,8 +1,4 @@
-﻿using System;
-using Flunt.Notifications;
-using Flunt.Validations;
-
-namespace StudioReservation.NewDomain.ValueObjects
+﻿namespace StudioReservation.NewDomain.ValueObjects
 {
     public class Email
     {

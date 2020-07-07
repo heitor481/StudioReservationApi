@@ -1,10 +1,8 @@
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using StudioReservation.NewData.Repository.Interfaces;
 using StudioReservation.NewDomain.Entities;
 
-namespace StudioReservation.NewData.Repository 
+namespace StudioReservation.NewData.Repository
 {
     public class ClientRepository : IClientRepository
     {
