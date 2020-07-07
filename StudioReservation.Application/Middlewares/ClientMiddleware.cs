@@ -19,6 +19,7 @@ namespace StudioReservation.Application.Middlewares
             this.error = error;
         }
 
+        //start thinking about how you are going to refactor that to a better way
         public async Task<bool> CreateClient(CreateClientViewModel createClient)
         {
             if (String.IsNullOrEmpty(createClient.FirstName)) 
@@ -34,6 +35,18 @@ namespace StudioReservation.Application.Middlewares
             if (createClient.Email == null) 
             {
                 this.error.Message.Add("You need to have at least one valid email");
+            }
+
+            var ageOfClient = DateTime.Now.Year - createClient.DateOfBirth.Year;
+
+            if (ageOfClient > 18) 
+            {
+                this.error.Message.Add("You must have 18 to use the app");
+            }
+
+            if (this.error.Message.Count > 0)
+            {
+                return false;
             }
 
             Client client = new Client(createClient.FirstName, createClient.LastName, createClient.DateOfBirth,

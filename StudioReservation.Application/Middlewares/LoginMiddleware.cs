@@ -29,16 +29,14 @@ namespace StudioReservation.Application.Middlewares
 
         public async Task<UserViewModel> Authenticate(string username, string password)
         {
-            if (username == "")
+            if (String.IsNullOrEmpty(username))
             {
                 this.error.Message.Add("Please, type your username");
-                return null;
             }
 
-            if (password == "")
+            if (String.IsNullOrEmpty(password))
             {
                 this.error.Message.Add("Please, type your password");
-                return null;
             }
 
             var result = await this.loginRepository.Authenticate(username, password);
@@ -46,6 +44,11 @@ namespace StudioReservation.Application.Middlewares
             if (result == null)
             {
                 this.error.Message.Add($"We could´t find any user with this {username} and {password}");
+                return null;
+            }
+
+            if (this.error.Message.Count > 0) 
+            {
                 return null;
             }
 
