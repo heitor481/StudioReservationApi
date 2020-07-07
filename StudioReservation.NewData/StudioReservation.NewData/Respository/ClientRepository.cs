@@ -15,6 +15,13 @@ namespace StudioReservation.NewData.Repository
             this.context = context;
         }
 
+        public async Task<bool> CreateClient(Client client)
+        {
+            this.context.Client.Add(client);
+            var success = await this.context.SaveChangesAsync() > 0;
+            return success;
+        }
+
         public async Task<Client> FindClientById(int clientId)
         {
             return await this.context.Client.FindAsync(clientId);

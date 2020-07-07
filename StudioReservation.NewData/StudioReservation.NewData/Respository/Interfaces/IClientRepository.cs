@@ -5,6 +5,8 @@ namespace StudioReservation.NewData.Repository.Interfaces
 {
     public interface IClientRepository 
     {
-        Task<Client> FindClientById(int clientId); 
+        Task<Client> FindClientById(int clientId);
+
+        Task<bool> CreateClient(Client client);
     }
 }
