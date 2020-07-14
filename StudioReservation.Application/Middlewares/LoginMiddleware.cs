@@ -31,12 +31,12 @@ namespace StudioReservation.Application.Middlewares
         {
             if (String.IsNullOrEmpty(username))
             {
-                this.error.Message.Add("Please, type your username");
+                this.error.Message.Add("You need to type a username");
             }
 
             if (String.IsNullOrEmpty(password))
             {
-                this.error.Message.Add("Please, type your password");
+                this.error.Message.Add("You need to type a password");
             }
 
             var result = await this.loginRepository.Authenticate(username, password);

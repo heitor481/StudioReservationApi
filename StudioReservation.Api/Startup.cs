@@ -42,7 +42,7 @@ namespace StudioReservation.Api
             options.UseNpgsql(Environment.GetEnvironmentVariable("CONNECTION_STRING")));
 
             #region JWT Token
-                var appSettingsSection = Configuration.GetSection("AppSettings");
+            var appSettingsSection = Configuration.GetSection("AppSettings");
                 services.Configure<AppSettings>(appSettingsSection);
 
                 var appSettings = appSettingsSection.Get<AppSettings>();

@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\StudioReservation.NewDomain\StudioReservation.NewDomain\StudioReservation.NewDomain.csproj" />
     <ProjectReference Include="..\StudioReservation.NewData\StudioReservation.NewData\StudioReservation.NewData.csproj" />
+    <ProjectReference Include="..\StudioReservation.Shared\StudioReservation.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>

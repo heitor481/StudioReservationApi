@@ -39,18 +39,28 @@ namespace StudioReservation.Application.Middlewares
 
             var ageOfClient = DateTime.Now.Year - createClient.DateOfBirth.Year;
 
-            if (ageOfClient > 18) 
+            if (ageOfClient < 18) 
             {
                 this.error.Message.Add("You must have 18 to use the app");
+            }
+
+            Client client = new Client(createClient.FirstName, createClient.LastName, createClient.DateOfBirth,
+                createClient.Address, createClient.Email, createClient.Document);
+
+            if (client.Document.DocumentIsValid()) 
+            {
+                this.error.Message.Add("The document that you added it's not a valid one. Please, type a valid one");
+            }
+
+            if (client.Email.IsValidEmail()) 
+            {
+                this.error.Message.Add("Please, enter with a valid email");
             }
 
             if (this.error.Message.Count > 0)
             {
                 return false;
             }
-
-            Client client = new Client(createClient.FirstName, createClient.LastName, createClient.DateOfBirth,
-                createClient.Address, createClient.Email, createClient.Document);
 
             var result = await this.clientRepository.CreateClient(client);
 

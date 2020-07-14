@@ -1,4 +1,8 @@
-﻿namespace StudioReservation.NewDomain.ValueObjects
+﻿using System;
+using System.Globalization;
+using System.Text.RegularExpressions;
+
+namespace StudioReservation.NewDomain.ValueObjects
 {
     public class Email
     {
@@ -20,13 +24,52 @@
 
         public string ConfirmPassword { get; set; }
 
-        //public void Validate()
-        //{
-        //    AddNotifications(new Contract()
-        //            .IsNullOrEmpty(this.UserEmail, "User Email", "Please insert your email")
-        //            .IsNullOrEmpty(this.Password, "Password", "Please insert your password")
-        //            .IsEmail(this.UserEmail, "UserEmail", "This is not a valid Email, please try with a valid one")
-        //        );
-        //}
+
+        //This code is copied from Microsoft https://docs.microsoft.com/en-us/dotnet/standard/base-types/how-to-verify-that-strings-are-in-valid-email-format
+        //I don't wanna waste time doing that type of validation for right now
+        public bool IsValidEmail()
+        {
+            if (string.IsNullOrWhiteSpace(this.UserEmail))
+                return false;
+
+            try
+            {
+                // Normalize the domain
+                this.UserEmail = Regex.Replace(this.UserEmail, @"(@)(.+)$", DomainMapper,
+                                      RegexOptions.None, TimeSpan.FromMilliseconds(200));
+
+                // Examines the domain part of the email and normalizes it.
+                string DomainMapper(Match match)
+                {
+                    // Use IdnMapping class to convert Unicode domain names.
+                    var idn = new IdnMapping();
+
+                    // Pull out and process domain name (throws ArgumentException on invalid)
+                    var domainName = idn.GetAscii(match.Groups[2].Value);
+
+                    return match.Groups[1].Value + domainName;
+                }
+            }
+            catch (RegexMatchTimeoutException e)
+            {
+                return false;
+            }
+            catch (ArgumentException e)
+            {
+                return false;
+            }
+
+            try
+            {
+                return Regex.IsMatch(this.UserEmail,
+                    @"^(?("")("".+?(?<!\\)""@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))" +
+                    @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$",
+                    RegexOptions.IgnoreCase, TimeSpan.FromMilliseconds(250));
+            }
+            catch (RegexMatchTimeoutException)
+            {
+                return false;
+            }
+        }
     }
 }
