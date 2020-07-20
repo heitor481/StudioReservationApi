@@ -9,7 +9,7 @@ using StudioReservation.Shared.Error;
 namespace StudioReservation.Api.Controllers
 {
     [Authorize("Bearer")]
-    [Route("apî")]
+    [Route("studio")]
     public class StudioController : BaseApi
     {
         private readonly IStudioMiddleware studioMiddleware;
@@ -20,7 +20,7 @@ namespace StudioReservation.Api.Controllers
         }
 
         [HttpGet]
-        [Route("v1/studio/getAllStudios")]
+        [Route("v1/api/getAllStudios")]
         public async Task<ApiResponse<object>> GetAllStudios() 
         {
             var result = await this.studioMiddleware.ListAllStudioAvaiable();

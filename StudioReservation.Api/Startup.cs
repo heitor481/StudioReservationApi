@@ -18,6 +18,7 @@ using StudioReservation.Shared.Error;
 using Microsoft.AspNetCore.Authorization;
 using System;
 using StudioReservation.Shared.Utils;
+using StudioReservation.Shared.Resources;
 
 namespace StudioReservation.Api
 {
@@ -40,6 +41,8 @@ namespace StudioReservation.Api
 
             services.AddDbContext<StudioReservationContext>(options =>
             options.UseNpgsql(Environment.GetEnvironmentVariable("CONNECTION_STRING")));
+
+            services.AddLocalization(config => config.ResourcesPath = "Resources");
 
             #region JWT Token
             var appSettingsSection = Configuration.GetSection("AppSettings");
@@ -83,6 +86,7 @@ namespace StudioReservation.Api
                 services.AddScoped<IClientRepository, ClientRepository>();
                 services.AddScoped<IReservationRepository, ReservationRepository>();
                 services.AddScoped<IEnvironmentVariable, EnvironmentVariable>();
+                services.AddScoped<ISharedResources, SharedResources>();
                 services.AddScoped<Error>();
             #endregion
                    

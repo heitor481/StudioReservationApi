@@ -5,18 +5,21 @@ using StudioReservation.NewData.Repository.Interfaces;
 using StudioReservation.NewDomain.Entities;
 using StudioReservation.NewDomain.ViewModel;
 using StudioReservation.Shared.Error;
+using StudioReservation.Shared.Resources;
 
 namespace StudioReservation.Application.Middlewares
 {
     public class ClientMiddleware : IClientMiddleware
     {
         private readonly IClientRepository clientRepository;
+        private readonly ISharedResources sharedResources;
         private Error error;
 
-        public ClientMiddleware(IClientRepository clientRepository, Error error)
+        public ClientMiddleware(IClientRepository clientRepository, Error error, ISharedResources sharedResources)
         {
             this.clientRepository = clientRepository;
             this.error = error;
+            this.sharedResources = sharedResources;
         }
 
         //start thinking about how you are going to refactor that to a better way
@@ -24,12 +27,12 @@ namespace StudioReservation.Application.Middlewares
         {
             if (String.IsNullOrEmpty(createClient.FirstName)) 
             {
-                this.error.Message.Add("You must enter your first name");
+                this.error.Message.Add(this.sharedResources.FirstNameRequired);
             }
 
             if (String.IsNullOrEmpty(createClient.LastName))
             {
-                this.error.Message.Add("You must enter your last name");
+                this.error.Message.Add(this.sharedResources.LastNameRequired);
             }
 
             if (createClient.Email == null) 
@@ -41,7 +44,7 @@ namespace StudioReservation.Application.Middlewares
 
             if (ageOfClient < 18) 
             {
-                this.error.Message.Add("You must have 18 to use the app");
+                this.error.Message.Add(this.sharedResources.AgeHigherThanEighteen);
             }
 
             Client client = new Client(createClient.FirstName, createClient.LastName, createClient.DateOfBirth,
@@ -54,7 +57,7 @@ namespace StudioReservation.Application.Middlewares
 
             if (client.Email.IsValidEmail()) 
             {
-                this.error.Message.Add("Please, enter with a valid email");
+                this.error.Message.Add(this.sharedResources.EnterValidEmail);
             }
 
             if (this.error.Message.Count > 0)

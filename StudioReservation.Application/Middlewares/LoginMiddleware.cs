@@ -9,6 +9,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Security.Claims;
 using StudioReservation.Shared.Error;
 using StudioReservation.Shared.Utils;
+using StudioReservation.Shared.Resources;
 
 namespace StudioReservation.Application.Middlewares
 {
@@ -16,27 +17,30 @@ namespace StudioReservation.Application.Middlewares
     {
         private readonly ILoginRepository loginRepository;
         private readonly IEnvironmentVariable environmentVariable;
+        private readonly ISharedResources sharedResources;
         private readonly Error error;
 
         public LoginMiddleware(ILoginRepository loginRepository,
             IEnvironmentVariable environmentVariable,
-            Error error)
+            Error error,
+            ISharedResources sharedResources)
         {
             this.loginRepository = loginRepository;
             this.environmentVariable = environmentVariable;
             this.error = error;
+            this.sharedResources = sharedResources;
         }
 
         public async Task<UserViewModel> Authenticate(string username, string password)
         {
             if (String.IsNullOrEmpty(username))
             {
-                this.error.Message.Add("You need to type a username");
+                this.error.Message.Add(this.sharedResources.UsernameRequired);
             }
 
             if (String.IsNullOrEmpty(password))
             {
-                this.error.Message.Add("You need to type a password");
+                this.error.Message.Add(this.sharedResources.PassWordRequired);
             }
 
             var result = await this.loginRepository.Authenticate(username, password);

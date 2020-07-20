@@ -9,7 +9,6 @@ using StudioReservation.Shared.Error;
 namespace StudioReservation.Api.Controllers
 {
     [Route("authenticate")]
-    [Route("apî")]
     public class LoginController : BaseApi
     {
         private readonly ILoginMiddleware loginMiddleware;
@@ -20,7 +19,7 @@ namespace StudioReservation.Api.Controllers
         }
 
         [HttpPost]
-        [Route("v1/login")]
+        [Route("v1/api/login")]
         public async Task<ApiResponse<object>> Login(UserRequest userRequest) 
         {
             var userViewModel = await this.loginMiddleware.Authenticate(userRequest.UserName, userRequest.PassWord);
