@@ -47,6 +47,11 @@ namespace StudioReservation.Application.Middlewares
                 this.error.Message.Add(this.sharedResources.AgeHigherThanEighteen);
             }
 
+            if (this.error.Message.Count > 0)
+            {
+                return false;
+            }
+
             Client client = new Client(createClient.FirstName, createClient.LastName, createClient.DateOfBirth,
                 createClient.Address, createClient.Email, createClient.Document);
 
@@ -58,11 +63,6 @@ namespace StudioReservation.Application.Middlewares
             if (client.Email.IsValidEmail()) 
             {
                 this.error.Message.Add(this.sharedResources.EnterValidEmail);
-            }
-
-            if (this.error.Message.Count > 0)
-            {
-                return false;
             }
 
             var result = await this.clientRepository.CreateClient(client);

@@ -14,16 +14,16 @@ namespace StudioReservation.Shared.Resources
             this.localizer = localizer;
         }
 
-        public string FirstNameRequired => this.localizer["First name is required"];
+        public string FirstNameRequired => this.localizer["FirstNameRequired"];
 
-        public string LastNameRequired => this.localizer["Last name is required"];
+        public string LastNameRequired => this.localizer["LastNameRequired"];
 
-        public string AgeHigherThanEighteen => this.localizer["You must have 18 to use the app"];
+        public string AgeHigherThanEighteen => this.localizer["AgeHigherThanEighteen"];
 
-        public string EnterValidEmail => this.localizer["The email typed is not valid"];
+        public string EnterValidEmail => this.localizer["EnterValidEmail"];
 
-        public string UsernameRequired => this.localizer["Username is required"];
+        public string UsernameRequired => this.localizer["UsernameRequired"];
 
-        public string PassWordRequired => this.localizer["Password is required"];
+        public string PassWordRequired => this.localizer["PassWordRequired"];
     }
 }

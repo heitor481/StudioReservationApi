@@ -43,16 +43,16 @@ namespace StudioReservation.Application.Middlewares
                 this.error.Message.Add(this.sharedResources.PassWordRequired);
             }
 
+            if (this.error.Message.Count > 0)
+            {
+                return null;
+            }
+
             var result = await this.loginRepository.Authenticate(username, password);
 
             if (result == null)
             {
                 this.error.Message.Add($"We could´t find any user with this {username} and {password}");
-                return null;
-            }
-
-            if (this.error.Message.Count > 0) 
-            {
                 return null;
             }
 
