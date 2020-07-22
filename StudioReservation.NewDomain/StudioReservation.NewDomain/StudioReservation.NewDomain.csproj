@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -8,9 +8,6 @@
     <Folder Include="Entities\" />
     <Folder Include="Enum\" />
     <Folder Include="ValueObjects\" />
-  </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="Flunt" Version="1.0.4" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\StudioReservation.Shared\StudioReservation.Shared.csproj" />
