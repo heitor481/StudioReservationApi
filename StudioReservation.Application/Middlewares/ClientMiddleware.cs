@@ -13,9 +13,9 @@ namespace StudioReservation.Application.Middlewares
     {
         private readonly IClientRepository clientRepository;
         private readonly ISharedResources sharedResources;
-        private Error error;
+        private readonly IError error;
 
-        public ClientMiddleware(IClientRepository clientRepository, Error error, ISharedResources sharedResources)
+        public ClientMiddleware(IClientRepository clientRepository, IError error, ISharedResources sharedResources)
         {
             this.clientRepository = clientRepository;
             this.error = error;

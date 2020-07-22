@@ -2,7 +2,7 @@
 
 namespace StudioReservation.Shared.Error
 {
-    public class Error
+    public class Error : IError
     {
         public Error()
         {

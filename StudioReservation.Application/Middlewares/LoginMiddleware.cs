@@ -18,11 +18,11 @@ namespace StudioReservation.Application.Middlewares
         private readonly ILoginRepository loginRepository;
         private readonly IEnvironmentVariable environmentVariable;
         private readonly ISharedResources sharedResources;
-        private readonly Error error;
+        private readonly IError error;
 
         public LoginMiddleware(ILoginRepository loginRepository,
             IEnvironmentVariable environmentVariable,
-            Error error,
+            IError error,
             ISharedResources sharedResources)
         {
             this.loginRepository = loginRepository;

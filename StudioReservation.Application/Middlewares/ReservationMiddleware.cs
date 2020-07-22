@@ -13,12 +13,12 @@ namespace StudioReservation.Application.Middlewares
         private readonly IReservationRepository reservationRepository;
         private readonly IStudioRepository studioRepository;
         private readonly IClientRepository clientRepository;
-        private readonly Error error;
+        private readonly IError error;
 
         public ReservationMiddleware(IReservationRepository reservationRepository,
         IStudioRepository studioRepository,
         IClientRepository clientRepository,
-        Error error)
+        IError error)
         {
             this.reservationRepository = reservationRepository;
             this.studioRepository = studioRepository;

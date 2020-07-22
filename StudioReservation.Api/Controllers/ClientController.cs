@@ -14,7 +14,7 @@ namespace StudioReservation.Api.Controllers
     {
         private readonly IClientMiddleware clientMiddleware;
 
-        public ClientController(Error error, IClientMiddleware clientMiddleware) : base(error)
+        public ClientController(IError error, IClientMiddleware clientMiddleware) : base(error)
         {
             this.clientMiddleware = clientMiddleware;
         }

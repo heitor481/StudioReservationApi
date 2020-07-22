@@ -14,7 +14,7 @@ namespace StudioReservation.Api.Controllers
     {
         private readonly IStudioMiddleware studioMiddleware;
 
-        public StudioController(IStudioMiddleware studioMiddleware, Error error) : base(error)
+        public StudioController(IStudioMiddleware studioMiddleware, IError error) : base(error)
         {
             this.studioMiddleware = studioMiddleware;
         }

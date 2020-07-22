@@ -91,6 +91,7 @@ namespace StudioReservation.Api
             services.AddScoped<IReservationRepository, ReservationRepository>();
             services.AddScoped<IEnvironmentVariable, EnvironmentVariable>();
             services.AddScoped<ISharedResources, SharedResources>();
+            services.AddScoped<IError, Error>();
             services.AddScoped<Error>();
             #endregion
 

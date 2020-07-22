@@ -13,7 +13,7 @@ namespace StudioReservation.Api.Controllers
     {
         private readonly ILoginMiddleware loginMiddleware;
 
-        public LoginController(ILoginMiddleware loginMiddleware, Error error) : base(error)
+        public LoginController(ILoginMiddleware loginMiddleware, IError error) : base(error)
         {
             this.loginMiddleware = loginMiddleware;
         }

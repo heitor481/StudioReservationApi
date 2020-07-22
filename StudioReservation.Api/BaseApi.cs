@@ -8,8 +8,8 @@ namespace StudioReservation.Api
     [ApiController]
     public class BaseApi : ControllerBase
     {
-        private readonly Error error;
-        public BaseApi(Error error)
+        private readonly IError error;
+        public BaseApi(IError error)
         {
             this.error = error;
         }
