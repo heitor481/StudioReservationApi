@@ -10,7 +10,6 @@ using StudioReservation.Shared.Error;
 using StudioReservation.Shared.Resources;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 

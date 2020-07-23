@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace StudioReservation.Shared.Resources
+﻿namespace StudioReservation.Shared.Resources
 {
     public interface ISharedResources
     {
