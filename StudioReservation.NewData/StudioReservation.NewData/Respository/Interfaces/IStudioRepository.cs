@@ -10,5 +10,7 @@ namespace StudioReservation.NewData.Repository.Interfaces
         Task<ICollection<StudioViewModel>> GetAllStudiosAvailable();
 
         Task<Studio> GetStudiosById(int studioId);
+
+        Task<ICollection<StudioRoom>> ListAllRoomsFromStudio(int studioId);
     }
 }

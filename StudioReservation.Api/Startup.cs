@@ -39,6 +39,7 @@ namespace StudioReservation.Api
             services.AddControllers().AddNewtonsoftJson(options =>
             {
                 options.SerializerSettings.Formatting = Formatting.Indented;
+                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
             });
 
             services.AddDbContext<StudioReservationContext>(options =>
@@ -92,7 +93,6 @@ namespace StudioReservation.Api
             services.AddScoped<IEnvironmentVariable, EnvironmentVariable>();
             services.AddScoped<ISharedResources, SharedResources>();
             services.AddScoped<IError, Error>();
-            services.AddScoped<Error>();
             #endregion
 
         }

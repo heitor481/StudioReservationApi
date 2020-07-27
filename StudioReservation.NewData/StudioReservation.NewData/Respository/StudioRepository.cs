@@ -35,5 +35,14 @@ namespace StudioReservation.NewData.Repository
         {
             return await this.context.Studio.FindAsync(studioId);
         }
+
+        public async Task<ICollection<StudioRoom>> ListAllRoomsFromStudio(int studioId)
+        {
+            return await this.context.StudioRoom
+                .Include(st => st.Studio)
+                .AsNoTracking()
+                .Where(x => x.Studio.Id == studioId && x.IsDeleted == null)
+                .ToListAsync();
+        }
     }
 }

@@ -27,5 +27,13 @@ namespace StudioReservation.Api.Controllers
             if (result == null) return CreateResponse(HttpStatusCode.BadRequest, result);
             return CreateResponse(HttpStatusCode.OK, result);
         }
+
+        [HttpGet]
+        [Route("v1/api/{studioId}")]
+        public async Task<ApiResponse<object>> ListAllRoomsFromStudio(int studioId) 
+        {
+            var result = await this.studioMiddleware.ListAllRoomsFromStudio(studioId);
+            return CreateResponse(HttpStatusCode.OK, result);
+        }
     }
 }
