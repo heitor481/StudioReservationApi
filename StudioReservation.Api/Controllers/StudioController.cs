@@ -21,7 +21,7 @@ namespace StudioReservation.Api.Controllers
 
         [HttpGet]
         [Route("v1/api/getAllStudios")]
-        public async Task<ApiResponse<object>> GetAllStudios() 
+        public async Task<ApiResponse<object>> GetAllStudios()
         {
             var result = await this.studioMiddleware.ListAllStudioAvaiable();
             if (result == null) return CreateResponse(HttpStatusCode.BadRequest, result);
@@ -30,7 +30,7 @@ namespace StudioReservation.Api.Controllers
 
         [HttpGet]
         [Route("v1/api/{studioId}")]
-        public async Task<ApiResponse<object>> ListAllRoomsFromStudio(int studioId) 
+        public async Task<ApiResponse<object>> ListAllRoomsFromStudio(int studioId)
         {
             var result = await this.studioMiddleware.ListAllRoomsFromStudio(studioId);
             return CreateResponse(HttpStatusCode.OK, result);

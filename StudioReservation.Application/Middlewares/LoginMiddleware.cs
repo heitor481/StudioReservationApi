@@ -10,6 +10,7 @@ using System.Security.Claims;
 using StudioReservation.Shared.Error;
 using StudioReservation.Shared.Utils;
 using StudioReservation.Shared.Resources;
+using System.Collections.Generic;
 
 namespace StudioReservation.Application.Middlewares
 {
@@ -65,12 +66,12 @@ namespace StudioReservation.Application.Middlewares
                 PassWord = result.Email.Password
             };
 
-            userViewModel.Token = this.GenerateTokenForUser(userViewModel.Id);
+            userViewModel.Token = this.GenerateTokenForUser(userViewModel);
 
             return userViewModel;
         }
 
-        private string GenerateTokenForUser(int userId)
+        private string GenerateTokenForUser(UserViewModel userViewModel)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var key = Encoding.ASCII.GetBytes(this.environmentVariable.GetEnvironmentVariable("SECRET_KEY"));
@@ -78,8 +79,9 @@ namespace StudioReservation.Application.Middlewares
             {
                 Subject = new System.Security.Claims.ClaimsIdentity(new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, userId.ToString())
+                    new Claim(ClaimTypes.Name, userViewModel.Id.ToString())
                 }),
+                Claims = new Dictionary<string, object> { { "userviewmodel", userViewModel } },
                 Expires = DateTime.UtcNow.AddDays(7),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
